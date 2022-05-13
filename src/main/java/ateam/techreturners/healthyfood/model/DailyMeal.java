@@ -1,4 +1,4 @@
-package techreturners.healthyfood.model;
+package ateam.techreturners.healthyfood.model;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,13 +1,11 @@
-package techreturners.healthyfood.controller;
+package ateam.techreturners.healthyfood.controller;
 
+import ateam.techreturners.healthyfood.model.*;
+import ateam.techreturners.healthyfood.service.FoodManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import techreturners.healthyfood.model.*;
-import techreturners.healthyfood.service.FoodManagerService;
 
 import java.util.List;
 

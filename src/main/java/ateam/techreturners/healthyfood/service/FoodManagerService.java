@@ -1,6 +1,6 @@
-package techreturners.healthyfood.service;
+package ateam.techreturners.healthyfood.service;
 
-import techreturners.healthyfood.model.*;
+import ateam.techreturners.healthyfood.model.*;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package techreturners.healthyfood;
+package ateam.techreturners.healthyfood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

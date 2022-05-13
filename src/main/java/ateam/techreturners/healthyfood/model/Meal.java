@@ -1,4 +1,4 @@
-package techreturners.healthyfood.model;
+package ateam.techreturners.healthyfood.model;
 
 public class Meal {
     Long id;

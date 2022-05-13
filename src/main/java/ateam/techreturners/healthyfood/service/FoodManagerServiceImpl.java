@@ -1,7 +1,7 @@
-package techreturners.healthyfood.service;
+package ateam.techreturners.healthyfood.service;
 
+import ateam.techreturners.healthyfood.model.*;
 import org.springframework.stereotype.Service;
-import techreturners.healthyfood.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
