@@ -38,6 +38,6 @@ public class Ingredients {
     int protein;
 
     @Column
-    String blob;
+    String photo;
 
 }

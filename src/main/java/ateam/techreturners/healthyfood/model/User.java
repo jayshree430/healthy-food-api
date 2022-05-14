@@ -39,5 +39,5 @@ public class User {
     String exclude;
 
     @Column
-    LocalDateTime datetime;
+    LocalDateTime dateadded;
 }
