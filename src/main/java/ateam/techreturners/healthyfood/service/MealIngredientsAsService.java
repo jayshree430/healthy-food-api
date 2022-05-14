@@ -10,8 +10,4 @@ public interface MealIngredientsAsService {
 
     MealIngredientAs getMealIngredientAsById(Long id);
 
-    MealIngredientAs insertIntoMealIngredientsAs(MealIngredientAs mealIngredientAs);
-
-    void deleteIngredientAsById(Long Id);
-
 }
