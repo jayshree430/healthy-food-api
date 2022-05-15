@@ -10,6 +10,8 @@ public interface MealPlanService {
 
     MealPlan getMealPlanById(Long id);
 
+    MealPlan insertIntoMealPlan(MealPlan mealPlan);
+
     void updateMealPlanById(Long id);
 
     void deleteMealPlanById(Long id);
