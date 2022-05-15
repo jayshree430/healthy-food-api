@@ -1,0 +1,48 @@
+@startuml
+
+HealthyFoodController --> UserService
+HealthyFoodController --> IngredientsService
+HealthyFoodController --> DietService
+HealthyFoodController --> MealService
+HealthyFoodController --> MealPlanService
+
+Class HealthyFoodController{
+
+    public getAllIngredients()
+    public getAllDiets()
+    public getMeals(int calories, String excludedIngredients, String diet, String category)
+    public getMealPlan(Long userId)
+    public createMealPlan(Long userId, LocalDateTime dateadded)
+}
+interface DietService {
+    List<Diet> getAllDiets()
+    Diet getDietById(Long id)
+}
+interface IngredientsService {
+
+    List<Ingredients> getAllIngredients()
+    Ingredients getIngredientById(Long id)
+}
+
+interface MealPlanService {
+
+    List<MealPlan> getAllMealPlans()
+    MealPlan getMealPlanById(Long id)
+    void updateMealPlanById(Long id)
+    void deleteMealPlanById(Long id)
+}
+
+interface MealService {
+    List<Meal> getAllMeals()
+    Meal getMealById(Long id)
+}
+
+interface UserService {
+    List<User> getAllUsers()
+    User getUserById(Long id)
+    User insertIntoUser(User user)
+    void deleteUserById(Long id)
+    void updateUserById(Long id)
+}
+
+@enduml
