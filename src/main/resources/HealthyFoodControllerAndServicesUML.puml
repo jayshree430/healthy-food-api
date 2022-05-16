@@ -1,146 +1,148 @@
 @startuml
+package "com.techreturners.teama.healthyfood.api" {
 
-HealthyFoodController --> UserService
-HealthyFoodController --> IngredientsService
-HealthyFoodController --> DietService
-HealthyFoodController --> MealService
-HealthyFoodController --> MealPlanService
-HealthyFoodController --> CategoryService
-UserService --> UserRepository
-IngredientsService --> IngredientsRepository
-DietService --> DietRepository
-MealService --> MealRepository
-MealPlanService --> MealPlanRepository
-MealIngredientsAsService --> MealIngredientsAsRepository
-CategoryService --> CategoryRepository
-UserRepository <-- User
-IngredientsRepository <-- Ingredients
-DietRepository <-- Diet
-MealRepository <-- Meal
-MealPlanRepository <-- MealPlan
-CategoryRepository <-- Category
-MealIngredientsAsRepository <-- MealIngredientAs
+    HealthyFoodController --> UserService
+    HealthyFoodController --> IngredientsService
+    HealthyFoodController --> DietService
+    HealthyFoodController --> MealService
+    HealthyFoodController --> MealPlanService
+    HealthyFoodController --> CategoryService
+    UserService --> UserRepository
+    IngredientsService --> IngredientsRepository
+    DietService --> DietRepository
+    MealService --> MealRepository
+    MealPlanService --> MealPlanRepository
+    MealIngredientsAsService --> MealIngredientsAsRepository
+    CategoryService --> CategoryRepository
+    UserRepository <-- User
+    IngredientsRepository <-- Ingredients
+    DietRepository <-- Diet
+    MealRepository <-- Meal
+    MealPlanRepository <-- MealPlan
+    CategoryRepository <-- Category
+    MealIngredientsAsRepository <-- MealIngredientAs
 
-Class HealthyFoodController{
+    Class HealthyFoodController{
 
-    public getAllIngredients()
-    public getAllDiets()
-    public getAllCategories()
-    public getMeals(int calories, String excludedIngredients, String diet, String category)
-    public getMealPlan(Long userId)
-    public createMealPlan(Long mealid, Long userId, LocalDateTime dateadded)
-}
-interface DietService {
-    List<Diet> getAllDiets()
-    Diet getDietById(Long id)
-}
-interface CategoryService {
-    List<Category> getAllCategories()
-    Category getCategoryById(Long id)
-}
-interface IngredientsService {
+        public getAllIngredients()
+        public getAllDiets()
+        public getAllCategories()
+        public getMeals(int calories, String excludedIngredients, String diet, String category)
+        public getMealPlan(Long userId)
+        public createMealPlan(Long mealid, Long userId, LocalDateTime dateadded)
+        public createMealPlan(List<MealPlan> mealplan)
+    }
+    interface DietService {
+        List<Diet> getAllDiets()
+        Diet getDietById(Long id)
+    }
+    interface CategoryService {
+        List<Category> getAllCategories()
+        Category getCategoryById(Long id)
+    }
+    interface IngredientsService {
 
-    List<Ingredients> getAllIngredients()
-    Ingredients getIngredientById(Long id)
-}
+        List<Ingredients> getAllIngredients()
+        Ingredients getIngredientById(Long id)
+    }
 
-interface MealPlanService {
+    interface MealPlanService {
 
-    List<MealPlan> getAllMealPlans()
-    MealPlan getMealPlanById(Long id)
-    MealPlan insertIntoMealPlan(MealPlan mealPlan)
-    void updateMealPlanById(Long id)
-    void deleteMealPlanById(Long id)
-}
-interface MealIngredientsAsService {
+        List<MealPlan> getAllMealPlans()
+        MealPlan getMealPlanById(Long id)
+        MealPlan insertIntoMealPlan(MealPlan mealPlan)
+        void updateMealPlanById(Long id)
+        void deleteMealPlanById(Long id)
+    }
+    interface MealIngredientsAsService {
 
-    List<MealIngredientAs> getAllMealIngredientAs()
-    MealIngredientAs getMealIngredientAsById(Long id)
-}
+        List<MealIngredientAs> getAllMealIngredientAs()
+        MealIngredientAs getMealIngredientAsById(Long id)
+    }
 
-interface MealService {
-    List<Meal> getAllMeals()
-    Meal getMealById(Long id)
-}
+    interface MealService {
+        List<Meal> getAllMeals()
+        Meal getMealById(Long id)
+    }
 
-interface UserService {
-    List<User> getAllUsers()
-    User getUserById(Long id)
-    User insertIntoUser(User user)
-    void deleteUserById(Long id)
-    void updateUserById(Long id)
-}
+    interface UserService {
+        List<User> getAllUsers()
+        User getUserById(Long id)
+        User insertIntoUser(User user)
+        void deleteUserById(Long id)
+        void updateUserById(Long id)
+    }
 
-class User {
-    Long id
-        String email;
-        String firstname;
-        String lastname;
-        String dietid;
-        String exclude;
+    class User {
+        Long id
+            String email;
+            String firstname;
+            String lastname;
+            String dietid;
+            String exclude;
+            LocalDateTime dateadded;
+    }
+
+    class Ingredients{
+        Long id;
+        String name;
+        int calories;
+        int carbohydrates;
+        int fat;
+        int protein;
+        String photo;
+    }
+
+    class MealIngredientAs{
+        Long id;
+        int mealid;
+        int ingredeintid;
+        int quantity;
+    }
+
+    class Diet{
+        Long id;
+        String name;
+    }
+
+    class Meal{
+        Long id;
+        String name;
+        String shortdesc;
+        String longdesc;
+        String category;
+        int preptime;
+        int servings;
+        String diet;
+        String photo;
+        String url;
         LocalDateTime dateadded;
-}
+    }
 
-class Ingredients{
-    Long id;
-    String name;
-    int calories;
-    int carbohydrates;
-    int fat;
-    int protein;
-    String photo;
-}
+    class Category{
+        Long id;
+        String name;
+    }
 
-class MealIngredientAs{
-    Long id;
-    int mealid;
-    int ingredeintid;
-    int quantity;
+    class MealPlan{
+        Long id;
+        int userid;
+        int mealid;
+        LocalDateTime date;
+    }
+    interface UserRepository{
+    }
+    interface CategoryRepository{
+    }
+    interface IngredientsRepository{
+    }
+    interface DietRepository{
+    }
+    interface MealPlanRepository{
+    }
+    interface MealRepository{
+    }
+    interface MealIngredientAs{
+    }
 }
-
-class Diet{
-    Long id;
-    String name;
-}
-
-class Meal{
-    Long id;
-    String name;
-    String shortdesc;
-    String longdesc;
-    String category;
-    int preptime;
-    int servings;
-    String diet;
-    String photo;
-    String url;
-    LocalDateTime dateadded;
-}
-
-class Category{
-    Long id;
-    String name;
-}
-
-class MealPlan{
-    Long id;
-    int userid;
-    int mealid;
-    LocalDateTime date;
-}
-interface UserRepository{
-}
-interface CategoryRepository{
-}
-interface IngredientsRepository{
-}
-interface DietRepository{
-}
-interface MealPlanRepository{
-}
-interface MealRepository{
-}
-interface MealIngredientAs{
-}
-
 @enduml
