@@ -9,25 +9,24 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MealPlan {
+public class MealIngredientAs {
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
     Long id;
 
     @Column
-    int userid;
-
-    @Column
     int mealid;
 
     @Column
-    LocalDateTime date;
+    int ingredeintid;
+
+    @Column
+    int quantity;
 }

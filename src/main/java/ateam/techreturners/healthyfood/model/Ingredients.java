@@ -9,25 +9,35 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MealPlan {
+public class Ingredients {
+
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
     Long id;
 
     @Column
-    int userid;
+    String name;
 
     @Column
-    int mealid;
+    int calories;
 
     @Column
-    LocalDateTime date;
+    int carbohydrates;
+
+    @Column
+    int fat;
+
+    @Column
+    int protein;
+
+    @Column
+    String photo;
+
 }

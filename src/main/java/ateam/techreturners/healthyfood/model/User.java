@@ -16,18 +16,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MealPlan {
+public class User {
+
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
     Long id;
 
     @Column
-    int userid;
+    String email;
 
     @Column
-    int mealid;
+    String firstname;
 
     @Column
-    LocalDateTime date;
+    String lastname;
+
+    @Column
+    String dietid;
+
+    @Column
+    String exclude;
+
+    @Column
+    LocalDateTime dateadded;
 }
