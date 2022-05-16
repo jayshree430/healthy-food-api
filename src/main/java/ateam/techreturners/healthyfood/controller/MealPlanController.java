@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -28,8 +29,8 @@ public class MealPlanController {
 
     @PostMapping(value = {"/"})
     @Operation(summary = "Creates a meal plan for a user")
-    public ResponseEntity<MealPlan> createMealPlan(@RequestBody MealPlanRequest mealPlanRequest) {
-        MealPlan mealPlan = foodManagerService.createMealPlan(mealPlanRequest);
+    public ResponseEntity<MealPlan> createMealPlan(@RequestParam Long mealid, @RequestParam Long userId, @RequestParam LocalDateTime dateadded) {
+        MealPlan mealPlan = foodManagerService.createMealPlan(mealid, userId, dateadded);
         return new ResponseEntity<>(mealPlan, HttpStatus.CREATED);
     }
 }

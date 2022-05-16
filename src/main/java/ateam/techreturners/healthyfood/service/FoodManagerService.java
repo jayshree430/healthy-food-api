@@ -2,6 +2,7 @@ package ateam.techreturners.healthyfood.service;
 
 import ateam.techreturners.healthyfood.model.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FoodManagerService {
@@ -11,7 +12,7 @@ public interface FoodManagerService {
 
     List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets);
 
-    MealPlan createMealPlan(MealPlanRequest mealPlanRequest);
-
     List<MealPlan> getMealPlans();
+
+    MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime dateadded);
 }

@@ -3,6 +3,7 @@ package ateam.techreturners.healthyfood.service;
 import ateam.techreturners.healthyfood.model.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +26,12 @@ public class FoodManagerServiceImpl implements FoodManagerService {
     }
 
     @Override
-    public MealPlan createMealPlan(MealPlanRequest mealPlanRequest) {
-        MealPlan newMealPlan = new MealPlan();
-        newMealPlan.setUserId(1L);
-        newMealPlan.setDailyMeals(mealPlanRequest.getDailyMeals());
-
-        return newMealPlan;
+    public List<MealPlan> getMealPlans() {
+        return new ArrayList<>();
     }
 
     @Override
-    public List<MealPlan> getMealPlans() {
-        return new ArrayList<>();
+    public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime dateadded) {
+        return null;
     }
 }
