@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/food")
-@Tag(name = "Food")
-public class FoodController {
+@RequestMapping("/api/v1")
+@Tag(name = "Healthy Food")
+public class HealthyFoodController {
 
     @Autowired
     FoodManagerService foodManagerService;
