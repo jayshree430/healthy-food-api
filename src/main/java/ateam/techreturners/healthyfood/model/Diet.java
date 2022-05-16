@@ -1,6 +1,5 @@
 package ateam.techreturners.healthyfood.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
