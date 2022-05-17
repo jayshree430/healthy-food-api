@@ -1,13 +1,15 @@
 @startuml
 
-User "1" --> "many" MealPlan
-User  *-- "1" Ingredients
-User "many" *-- "1" Diet
+Meal "1" --  MealIngredientAs
+MealIngredientAs -- "1" Ingredients
 MealPlan "many" <-- "1" Meal
-Meal "many" *-- "1" Diet
-Meal "many" *-- "1" Category
-Meal "1" -- "many" MealIngredientAs
-MealIngredientAs "many" -- "1" Ingredients
+Meal  *-- "1" Diet
+Meal  *-- "1" Category
+User "1" -->  MealPlan
+User  *-- "1" Ingredients
+User  *-- "1" Diet
+
+
 
 class User {
     Long id
