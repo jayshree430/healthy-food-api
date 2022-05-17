@@ -7,15 +7,16 @@ The meals are based on total amount of calories per day, the type of diet and li
 * Example of Exclusion :  nuts, mushrooms, peanut, eggs, fish, shellfish etc
 
 ## Endpoints 
-* fetch all ingredients : localhost:8080/api/v1/ingredient
-* fetch all diet types : localhost:8080/api/v1/diet
-* fetch all meal Plans for the user: localhost:8080/api/v1/meal
+* **fetch all ingredients :** localhost:8080/api/v1/ingredient
+* **fetch all diet types :** localhost:8080/api/v1/diet
+* **fetch all meal for the user:** localhost:8080/api/v1/meal
   * Parameters :
     * calories 
     * diet 
     * exclusions
     * category
-* create meal plans for the user : localhost:8080/api/v1/mealPlan
+* **fetch meal Plan for user :** localhost:8080/api/v1/mealPlans
+* **create meal plans for the user :** localhost:8080/api/v1/mealPlan
   * Parameters :
     * mealId
     * userId
