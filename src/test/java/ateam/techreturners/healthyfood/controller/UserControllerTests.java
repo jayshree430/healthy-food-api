@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 import static org.mockito.Mockito.*;
 
@@ -38,6 +39,37 @@ public class UserControllerTests {
     public void setup(){
         mockMvcController = MockMvcBuilders.standaloneSetup(userController).build();
         mapper = new ObjectMapper();
+    }
+
+    @Test
+    public void testGetUserById() throws Exception {
+
+        User user = new User(1L, "email@gmail.com", "firstName", "LastName", "1", "1", LocalDateTime.now());
+
+        when(mockUserServiceImpl.getUserById(user.getId())).thenReturn(user);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/user/" + user.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(user.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname").value(user.getFirstname()));
+
+        verify(mockUserServiceImpl, times(1)).getUserById(user.getId());
+    }
+
+    @Test
+    public void testGetUserByIdWhenUserDoesNotExistForThatID() throws Exception {
+        Long userId = 4L;
+
+        doThrow(NoSuchElementException.class)
+                .when(mockUserServiceImpl)
+                .getUserById(userId);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/user/" + userId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        verify(mockUserServiceImpl, times(1)).getUserById(userId);
     }
 
     @Test
