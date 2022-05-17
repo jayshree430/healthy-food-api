@@ -18,7 +18,7 @@ We started with defining what our MVP will be. After doing the initial research 
 * Setup an AWS Database. 
 
 ### User-Case Diagram
-![](C:\healthy-food-api\docs\HealthyFoodAPI-UserCaseDiagram.drawio.png)
+![](docs/HealthyFoodAPI-UserCaseDiagram.drawio.png)
 
 This diagram shows the high-level functions and scope of our application.
 
@@ -35,7 +35,7 @@ The classes are designed in MVC pattern
 
 These classes make use of Lombok annotations and JPA
 * The MealIngredientAs class will contain all the ingredients for a particular meal.
-* We query the above table excluding the ingredients which matches the Exclusion list.
+* We query the MealIngredeientAs excluding the ingredients which matches the Exclusion list.
 * The list of Meal will be returned and further we filter it according to the category and diet.
 * This list of Meals is sent to the User.
 * User can select meals and add them to particular date as a request.
