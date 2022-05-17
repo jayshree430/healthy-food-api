@@ -17,8 +17,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
@@ -39,6 +42,23 @@ public class UserControllerTests {
     public void setup(){
         mockMvcController = MockMvcBuilders.standaloneSetup(userController).build();
         mapper = new ObjectMapper();
+    }
+
+    @Test
+    public void testGetAllBooksReturnsBooks() throws Exception {
+
+        List<User> users = new ArrayList<>();
+        users.add(new User(1L, "email@gmail.com", "firstName", "LastName", "1", "1", LocalDateTime.now()));
+        users.add(new User(2L, "email2@gmail.com", "firstName2", "LastName2", "2", "2", LocalDateTime.now()));
+
+        when(mockUserServiceImpl.getAllUsers()).thenReturn(users);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/user/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].firstname").value("firstName2"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.*", hasSize(2)));;
     }
 
     @Test

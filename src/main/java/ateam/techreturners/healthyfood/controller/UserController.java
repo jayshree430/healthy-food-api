@@ -22,6 +22,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @GetMapping
+    @Operation(summary = "Gets all users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
     @GetMapping({"/{userId}"})
     @Operation(summary = "Gets user by Id")
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
