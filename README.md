@@ -6,21 +6,24 @@ The meals are based on total amount of calories per day, the type of diet and li
 * Example of Diet :  vegan, vegetarian, keto, Dairy-free, gluten-free etc
 * Example of Exclusion :  nuts, mushrooms, peanut, eggs, fish, shellfish etc
 
-In this application we have created api endpoints to :
-
-* fetch all ingredients
-* fetch all diet types
-* create meal plans for the user
-* fetch all meal Plans for the user
-
 ## Endpoints 
-
-
+* fetch all ingredients : localhost:8080/api/v1/ingredient
+* fetch all diet types : localhost:8080/api/v1/diet
+* fetch all meal Plans for the user: localhost:8080/api/v1/meal
+  * Parameters :
+    * calories 
+    * diet 
+    * exclusions
+    * category
+* create meal plans for the user : localhost:8080/api/v1/mealPlan
+  * Parameters :
+    * mealId
+    * userId
+    * dateAdded
 
 ### Class Diagram for Model Classes
 
-These classes are based to the database schema. The database is created in MySql.
-* The classes are made using Lombok annotations and JPA
+These classes are based to the database schema. The database is created in MySql. These classes make user of Lombok annotations and JPA
 
 ![img.png](img.png)
 
