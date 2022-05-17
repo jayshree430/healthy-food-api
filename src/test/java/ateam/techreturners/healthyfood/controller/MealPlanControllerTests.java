@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +56,31 @@ public class MealPlanControllerTests {
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
         verify(mockMealPlanManagerServiceImpl, times(1)).getMealPlans();
+    }
+
+    @Test
+    public void testCreateMealPlan() throws Exception {
+
+        Long mealId = 1L;
+        Long userId = 1L;
+        LocalDateTime dateAdded = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        MealPlan mealPlan = new MealPlan(1L, userId, mealId, dateAdded);
+
+        when(mockMealPlanManagerServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.post("/api/v1/mealplan/")
+                                .param("mealId", String.valueOf(mealId))
+                                .param("userId", String.valueOf(userId))
+                                .param("dateAdded", dateAdded.format(dateFormatter))
+                )
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.userid").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));;
+
+        verify(mockMealPlanManagerServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
     }
 }
