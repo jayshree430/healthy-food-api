@@ -23,10 +23,10 @@ public class MealPlan {
     Long id;
 
     @Column
-    int userid;
+    Long userid;
 
     @Column
-    int mealid;
+    Long mealid;
 
     @Column
     LocalDateTime date;
