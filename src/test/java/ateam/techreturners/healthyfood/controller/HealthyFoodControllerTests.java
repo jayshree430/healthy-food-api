@@ -59,4 +59,21 @@ public class HealthyFoodControllerTests {
 
         verify(healthyFoodManagerService, times(1)).getAllIngredients();
     }
+
+    @Test
+    public void testGetAllDiets() throws Exception {
+
+        List<Diet> diets = new ArrayList<>();
+        diets.add(new Diet(1L, "Diet1"));
+        diets.add(new Diet(2L, "Diet2"));
+
+        when(healthyFoodManagerService.getAllDiets()).thenReturn(diets);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/diet/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(2)));
+
+        verify(healthyFoodManagerService, times(1)).getAllDiets();
+    }
 }
