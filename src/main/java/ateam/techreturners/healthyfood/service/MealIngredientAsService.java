@@ -4,7 +4,7 @@ import ateam.techreturners.healthyfood.model.MealIngredientAs;
 
 import java.util.List;
 
-public interface MealIngredientsAsService {
+public interface MealIngredientAsService {
 
     List<MealIngredientAs> getAllMealIngredientAs();
 

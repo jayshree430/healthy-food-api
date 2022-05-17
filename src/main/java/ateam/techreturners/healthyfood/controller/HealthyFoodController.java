@@ -1,7 +1,7 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.*;
-import ateam.techreturners.healthyfood.service.FoodManagerService;
+import ateam.techreturners.healthyfood.service.HealthyFoodManagerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +17,26 @@ import java.util.List;
 public class HealthyFoodController {
 
     @Autowired
-    FoodManagerService foodManagerService;
+    HealthyFoodManagerService healthyFoodManagerService;
 
     @GetMapping({"/ingredient"})
     @Operation(summary = "Gets a list of all ingredients")
     public ResponseEntity<List<Ingredient>> getAllIngredients() {
-        List<Ingredient> allIngredients = foodManagerService.getAllIngredients();
+        List<Ingredient> allIngredients = healthyFoodManagerService.getAllIngredients();
         return new ResponseEntity<>(allIngredients, HttpStatus.OK);
     }
 
     @GetMapping({"/diet"})
     @Operation(summary = "Gets a list of all diets")
     public ResponseEntity<List<Diet>> getAllDiets() {
-        List<Diet> allDiets = foodManagerService.getAllDiets();
+        List<Diet> allDiets = healthyFoodManagerService.getAllDiets();
         return new ResponseEntity<>(allDiets, HttpStatus.OK);
     }
 
     @GetMapping({"/meal"})
     @Operation(summary = "Gets a selection of meals based on restrictions")
     public ResponseEntity<List<Meal>> getMeals(@RequestParam Long calories, @RequestParam List<String> excludedIngredients, @RequestParam List<String> excludedDiets) {
-        List<Meal> meals = foodManagerService.getMeals(calories, excludedIngredients, excludedDiets);
+        List<Meal> meals = healthyFoodManagerService.getMeals(calories, excludedIngredients, excludedDiets);
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 }

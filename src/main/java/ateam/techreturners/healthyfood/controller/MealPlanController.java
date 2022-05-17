@@ -1,10 +1,11 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.*;
-import ateam.techreturners.healthyfood.service.FoodManagerService;
+import ateam.techreturners.healthyfood.service.MealPlanManagerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +19,19 @@ import java.util.List;
 public class MealPlanController {
 
     @Autowired
-    FoodManagerService foodManagerService;
+    MealPlanManagerService mealPlanManagerService;
 
     @GetMapping({"/"})
     @Operation(summary = "Gets the list of meal plans for a user")
     public ResponseEntity<List<MealPlan>> getMealPlans() {
-        List<MealPlan> mealPlans = foodManagerService.getMealPlans(); // For Authenticated user
+        List<MealPlan> mealPlans = mealPlanManagerService.getMealPlans(); // For Authenticated user
         return new ResponseEntity<>(mealPlans, HttpStatus.OK);
     }
 
     @PostMapping(value = {"/"})
     @Operation(summary = "Creates a meal plan for a user")
-    public ResponseEntity<MealPlan> createMealPlan(@RequestParam Long mealid, @RequestParam Long userId, @RequestParam LocalDateTime dateadded) {
-        MealPlan mealPlan = foodManagerService.createMealPlan(mealid, userId, dateadded);
+    public ResponseEntity<MealPlan> createMealPlan(@RequestParam Long mealId, @RequestParam Long userId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded) {
+        MealPlan mealPlan = mealPlanManagerService.createMealPlan(mealId, userId, dateAdded);
         return new ResponseEntity<>(mealPlan, HttpStatus.CREATED);
     }
 }
