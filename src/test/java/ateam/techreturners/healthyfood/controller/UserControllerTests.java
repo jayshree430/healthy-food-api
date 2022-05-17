@@ -89,7 +89,25 @@ public class UserControllerTests {
     }
 
     @Test
-    public void testUpdateUser() throws Exception {
+    public void testAddUserWhenIdAlreadyExists() throws Exception {
+
+        User user = new User(1L, "email@gmail.com", "firstName", "LastName", "1", "1", LocalDateTime.now());
+
+        doThrow(IllegalArgumentException.class)
+                .when(mockUserServiceImpl)
+                .insertIntoUser(user);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.post("/api/v1/user/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(user)))
+                .andExpect(MockMvcResultMatchers.status().isConflict());
+
+        verify(mockUserServiceImpl, times(1)).insertIntoUser(user);
+    }
+
+    @Test
+    public void testUpdateUserById() throws Exception {
 
         User user = new User(1L, "email@gmail.com", "firstNameUpdated", "LastNameUpdated", "1", "1", LocalDateTime.now());
 
