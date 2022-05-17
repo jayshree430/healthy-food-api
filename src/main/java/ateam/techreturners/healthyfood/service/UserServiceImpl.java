@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-        return null;
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserById(Long id) {
-
+    public void updateUserById(Long id, User user) {
+        user.setId(id);
+        userRepository.save(user);
     }
 }

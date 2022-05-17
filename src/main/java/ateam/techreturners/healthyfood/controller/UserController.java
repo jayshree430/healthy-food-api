@@ -32,4 +32,10 @@ public class UserController {
         httpHeaders.add("user", "/api/v1/user/" + newUser.getId().toString());
         return new ResponseEntity<>(newUser, httpHeaders, HttpStatus.CREATED);
     }
+
+    @PutMapping({"/{userId}"})
+    public ResponseEntity<User> updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
+        userService.updateUserById(userId, user);
+        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    }
 }

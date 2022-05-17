@@ -55,4 +55,22 @@ public class UserControllerTests {
 
         verify(mockUserServiceImpl, times(1)).insertIntoUser(user);
     }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+
+        User user = new User(1L, "email@gmail.com", "firstNameUpdated", "LastNameUpdated", "1", "1", LocalDateTime.now());
+
+        when(mockUserServiceImpl.getUserById(user.getId())).thenReturn(user);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.put("/api/v1/user/" + user.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(user)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname").value(user.getFirstname()));
+
+        verify(mockUserServiceImpl, times(1)).updateUserById(user.getId(), user);
+        verify(mockUserServiceImpl, times(1)).getUserById(user.getId());
+    }
 }
