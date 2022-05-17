@@ -6,7 +6,7 @@ The meals are based on total amount of calories per day, the type of diet and li
 * Example of Diet :  vegan, vegetarian, keto, Dairy-free, gluten-free etc
 * Example of Exclusion :  nuts, mushrooms, peanut, eggs, fish, shellfish etc
 
-# Research & Analysis
+## Research & Analysis
 We started with defining what our MVP will be. After doing the initial research ,we came up with the following features for our MVP :
 
 * Get list of ingredients to be used for exclusion list
@@ -15,7 +15,11 @@ We started with defining what our MVP will be. After doing the initial research 
 * Create meal plan based on meals IDs and a day
 * Get meal plan based on user id 
 * Decided to store all the data in the backend using MySql database.
-* Setup an AWS Database. 
+* Setup an AWS Database.
+* Using Trello for Scrum
+* Daily standup at 10 am
+* We will use pairing as well as individual tasks.
+
 
 ### User-Case Diagram
 ![](docs/HealthyFoodAPI-UserCaseDiagram.drawio.png)
