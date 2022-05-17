@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> books = new ArrayList<>();
-        userRepository.findAll().forEach(books::add);
-        return books;
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        return users;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-
+        userRepository.deleteById(id);
     }
 
     @Override

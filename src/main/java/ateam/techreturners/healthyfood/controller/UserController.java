@@ -5,6 +5,7 @@ import ateam.techreturners.healthyfood.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,16 @@ public class UserController {
     public ResponseEntity<User> updateUserById(@PathVariable("userId") Long userId, @RequestBody User user) {
         userService.updateUserById(userId, user);
         return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
+    }
+
+    @DeleteMapping({"/{userId}"})
+    @Operation(summary = "Deletes user by Id")
+    public ResponseEntity<Long> deleteUserById(@PathVariable Long userId) {
+        try {
+            userService.deleteUserById(userId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(userId);
     }
 }

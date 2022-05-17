@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -45,7 +46,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void testGetAllBooksReturnsBooks() throws Exception {
+    public void testGetAllUsers() throws Exception {
 
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "email@gmail.com", "firstName", "LastName", "1", "1", LocalDateTime.now()));
@@ -142,5 +143,32 @@ public class UserControllerTests {
 
         verify(mockUserServiceImpl, times(1)).updateUserById(user.getId(), user);
         verify(mockUserServiceImpl, times(1)).getUserById(user.getId());
+    }
+
+    @Test
+    public void testDeleteUserById() throws Exception {
+        Long userId = 4L;
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.delete("/api/v1/user/" + userId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(userId+""));
+
+        verify(mockUserServiceImpl, times(1)).deleteUserById(userId);
+    }
+
+    @Test
+    public void testDeleteUserByIdWhenUserDoesNotExist() throws Exception {
+        Long userId = 4L;
+
+        doThrow(EmptyResultDataAccessException.class)
+                .when(mockUserServiceImpl)
+                .deleteUserById(userId);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.delete("/api/v1/user/" + userId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        verify(mockUserServiceImpl, times(1)).deleteUserById(userId);
     }
 }
