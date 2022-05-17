@@ -1,5 +1,52 @@
 # Healthy Food API
-Healthy Food API for creating meal plans based on dietary restrictions.
+Healthy Food API is designed to create a meal plan for a day based on dietary restrictions. 
+The objective of this application is to fetch different meals and let the user add the meals to meal planner.
+The meals are based on total amount of calories per day, the type of diet and list of ingredients user wants to exclude from his meals.
+
+* Example of Diet :  vegan, vegetarian, keto, Dairy-free, gluten-free etc
+* Example of Exclusion :  nuts, mushrooms, peanut, eggs, fish, shellfish etc
+
+In this application we have created api endpoints to :
+
+* fetch all ingredients
+* fetch all diet types
+* create meal plans for the user
+* fetch all meal Plans for the user
+
+## Endpoints 
+
+
+
+### Class Diagram for Model Classes
+
+These classes are based to the database schema. The database is created in MySql.
+* The classes are made using Lombok annotations and JPA
+
+![img.png](img.png)
+
+### Class Diagram to exhibit the flow of Controller to Service and Repository
+
+The classes are designed in MVC pattern
+* Controller will have classes related to endpoints. 
+* Service will have interfaces to call the CRUD repository methods
+* Repository has the interfaces related to CRUD
+
+![img_1.png](img_1.png)
+
+### Pre-Requisites
+- Java SE Development Kit 11
+- Maven
+
+### Technologies & Dependencies
+- Spring Boot
+- Spring Web
+- Lombok
+- Spring Data JPA
+- Mokito
+- JUnit 5.8.2
+- Maven 4.0
+- MySql Database
+- Swagger
 
 ## API Documentation
 
@@ -9,3 +56,15 @@ Run the main application and then go to:
 
 - JSON: http://localhost:8080/v3/api-docs
 - User Interface: http://localhost:8080/swagger-ui/index.html
+
+## Future Considerations
+
+
+
+## How to run the application
+  * cd to the project root folder in the command line
+  * mvn compile
+  * mvn exec:java -Dexec.mainClass=ateam.techreturners.healthyfood.HealthyfoodApplication
+
+## Running the Unit tests
+* mvn test
