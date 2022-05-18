@@ -21,16 +21,16 @@ public class MealPlanController {
     @Autowired
     MealPlanService mealPlanManagerService;
 
-    @GetMapping({"/"})
+    @GetMapping({"/{userId}"})
     @Operation(summary = "Gets the list of meal plans for a user")
-    public ResponseEntity<List<MealPlan>> getMealPlans() {
-        List<MealPlan> mealPlans = mealPlanManagerService.getAllMealPlans(); // For Authenticated user
+    public ResponseEntity<List<MealPlan>> getMealPlansByUser(@PathVariable Long userId) {
+        List<MealPlan> mealPlans = mealPlanManagerService.getAllMealPlans(userId); // For Authenticated user
         return new ResponseEntity<>(mealPlans, HttpStatus.OK);
     }
 
-    @PostMapping(value = {"/"})
+    @PostMapping({"/{userId}"})
     @Operation(summary = "Creates a meal plan for a user")
-    public ResponseEntity<MealPlan> createMealPlan(@RequestParam Long mealId, @RequestParam Long userId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded) {
+    public ResponseEntity<MealPlan> createMealPlanByUser(@PathVariable Long userId, @RequestParam Long mealId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded) {
         MealPlan mealPlan = mealPlanManagerService.createMealPlan(mealId, userId, dateAdded);
         return new ResponseEntity<>(mealPlan, HttpStatus.CREATED);
     }

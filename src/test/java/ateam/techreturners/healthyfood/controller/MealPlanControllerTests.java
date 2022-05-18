@@ -37,29 +37,30 @@ public class MealPlanControllerTests {
     private MockMvc mockMvcController;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         mockMvcController = MockMvcBuilders.standaloneSetup(mealPlanController).build();
     }
 
     @Test
-    public void testGetMealPlans() throws Exception {
+    public void testGetMealPlansByUser() throws Exception {
 
+        Long userId = 1L;
         List<MealPlan> mealPlans = new ArrayList<>();
         mealPlans.add(new MealPlan(1L, 1L, 1L, LocalDateTime.now()));
         mealPlans.add(new MealPlan(2L, 2L, 2L, LocalDateTime.now()));
 
-        when(mockMealPlanServiceImpl.getAllMealPlans()).thenReturn(mealPlans);
+        when(mockMealPlanServiceImpl.getAllMealPlans(userId)).thenReturn(mealPlans);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.get("/api/v1/mealplan/"))
+                        MockMvcRequestBuilders.get("/api/v1/mealplan/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(mockMealPlanServiceImpl, times(1)).getAllMealPlans();
+        verify(mockMealPlanServiceImpl, times(1)).getAllMealPlans(userId);
     }
 
     @Test
-    public void testCreateMealPlan() throws Exception {
+    public void testCreateMealPlanByUser() throws Exception {
 
         Long mealId = 1L;
         Long userId = 1L;
@@ -70,16 +71,16 @@ public class MealPlanControllerTests {
         when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.post("/api/v1/mealplan/")
+                        MockMvcRequestBuilders.post("/api/v1/mealplan/" + userId)
                                 .param("mealId", String.valueOf(mealId))
-                                .param("userId", String.valueOf(userId))
                                 .param("dateAdded", dateAdded.format(dateFormatter))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userid").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));
+        ;
 
         verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
     }

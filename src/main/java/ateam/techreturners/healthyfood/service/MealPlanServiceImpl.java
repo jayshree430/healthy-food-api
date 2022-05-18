@@ -11,7 +11,7 @@ import java.util.List;
 public class MealPlanServiceImpl implements MealPlanService {
 
     @Override
-    public List<MealPlan> getAllMealPlans() {
+    public List<MealPlan> getAllMealPlans(Long userId) {
         return new ArrayList<>();
     }
 
