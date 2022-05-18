@@ -40,4 +40,13 @@ public class Ingredient {
     @Column
     String photo;
 
+    @Column
+    int allergen;
+
+    @Column
+    String category;
+
+    @Column
+    Long categoryid;
+
 }

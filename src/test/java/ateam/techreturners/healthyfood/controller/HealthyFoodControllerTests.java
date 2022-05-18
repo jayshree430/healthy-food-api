@@ -5,6 +5,7 @@ import ateam.techreturners.healthyfood.model.Diet;
 import ateam.techreturners.healthyfood.model.Ingredient;
 import ateam.techreturners.healthyfood.model.Meal;
 import ateam.techreturners.healthyfood.service.HealthyFoodManagerServiceImpl;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,10 +18,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -48,8 +52,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllIngredients() throws Exception {
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, "photo1"));
-        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, "photo2"));
+        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, "photo1", 1, "3,4", 5L));
+        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, "photo2", 0, "5,7", 6L));
 
         when(healthyFoodManagerService.getAllIngredients()).thenReturn(ingredients);
 
@@ -65,8 +69,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllDiets() throws Exception {
 
         List<Diet> diets = new ArrayList<>();
-        diets.add(new Diet(1L, "Diet1"));
-        diets.add(new Diet(2L, "Diet2"));
+        diets.add(new Diet(1L, "Diet1", "5,7", " "));
+        diets.add(new Diet(2L, "Diet2", "3,4", " "));
 
         when(healthyFoodManagerService.getAllDiets()).thenReturn(diets);
 
@@ -82,8 +86,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllCategories() throws Exception {
 
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(1L, "Cat1"));
-        categories.add(new Category(2L, "Cat2"));
+        categories.add(new Category(1L, "Cat1", "10,12", LocalDate.now(), LocalDate.now().plusDays(5), LocalTime.now(), LocalTime.now().plusHours(15), Locale.UK.getCountry()));
+        categories.add(new Category(2L, "Cat2", "11,14", LocalDate.now(), LocalDate.now().plusDays(5), LocalTime.now(), LocalTime.now().plusHours(15), Locale.UK.getCountry()));
 
         when(healthyFoodManagerService.getAllCategories()).thenReturn(categories);
 
@@ -103,8 +107,8 @@ public class HealthyFoodControllerTests {
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         String category = "Cat1";
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, "Diet1", "Photo1", "Url1", LocalDateTime.now()));
-        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, "Diet2", "Photo2", "Url2", LocalDateTime.now()));
+        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000 ,"1,3","Diet1", "Photo1", "Url1", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
+        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500,"5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
 
         when(healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category)).thenReturn(meals);
 

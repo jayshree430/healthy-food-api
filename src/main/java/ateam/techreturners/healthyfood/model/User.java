@@ -23,7 +23,7 @@ public class User {
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
-    Long id;
+    Integer id;
 
     @Column
     String email;

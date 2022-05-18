@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -42,6 +43,12 @@ public class Meal {
     int servings;
 
     @Column
+    int calories;
+
+    @Column
+    String ingredient;
+
+    @Column
     String diet;
 
     @Column
@@ -52,4 +59,10 @@ public class Meal {
 
     @Column
     LocalDateTime dateadded;
+
+    @Column
+    LocalTime start;
+
+    @Column
+    LocalTime end;
 }

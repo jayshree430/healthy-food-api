@@ -21,7 +21,7 @@ public class MealPlan {
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
-    Long id;
+    Integer id;
 
     @Column
     Long userid;

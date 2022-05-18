@@ -9,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Entity
 @Data
@@ -24,4 +27,23 @@ public class Category {
 
     @Column
     String name;
+
+    @Column
+    String exclude;
+
+    @Column
+    LocalDate startdate;
+
+    @Column
+    LocalDate enddate;
+
+    @Column
+    LocalTime starttime;
+
+    @Column
+    LocalTime endtime;
+
+    @Column
+    String locale;
+
 }
