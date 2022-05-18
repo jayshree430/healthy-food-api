@@ -23,4 +23,9 @@ public class HealthyFoodManagerServiceImpl implements HealthyFoodManagerService 
     public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
         return new ArrayList<>();
     }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return new ArrayList<>();
+    }
 }

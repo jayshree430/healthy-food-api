@@ -1,5 +1,6 @@
 package ateam.techreturners.healthyfood.controller;
 
+import ateam.techreturners.healthyfood.model.Category;
 import ateam.techreturners.healthyfood.model.Diet;
 import ateam.techreturners.healthyfood.model.Ingredient;
 import ateam.techreturners.healthyfood.model.Meal;
@@ -75,6 +76,23 @@ public class HealthyFoodControllerTests {
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
         verify(healthyFoodManagerService, times(1)).getAllDiets();
+    }
+
+    @Test
+    public void testGetAllCategories() throws Exception {
+
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category(1L, "Cat1"));
+        categories.add(new Category(2L, "Cat2"));
+
+        when(healthyFoodManagerService.getAllCategories()).thenReturn(categories);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/category/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(jsonPath("$.*", hasSize(2)));
+
+        verify(healthyFoodManagerService, times(1)).getAllCategories();
     }
 
     @Test
