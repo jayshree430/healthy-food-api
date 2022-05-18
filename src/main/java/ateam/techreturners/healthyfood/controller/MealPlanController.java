@@ -1,7 +1,7 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.*;
-import ateam.techreturners.healthyfood.service.MealPlanManagerService;
+import ateam.techreturners.healthyfood.service.MealPlanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import java.util.List;
 public class MealPlanController {
 
     @Autowired
-    MealPlanManagerService mealPlanManagerService;
+    MealPlanService mealPlanManagerService;
 
     @GetMapping({"/"})
     @Operation(summary = "Gets the list of meal plans for a user")
     public ResponseEntity<List<MealPlan>> getMealPlans() {
-        List<MealPlan> mealPlans = mealPlanManagerService.getMealPlans(); // For Authenticated user
+        List<MealPlan> mealPlans = mealPlanManagerService.getAllMealPlans(); // For Authenticated user
         return new ResponseEntity<>(mealPlans, HttpStatus.OK);
     }
 

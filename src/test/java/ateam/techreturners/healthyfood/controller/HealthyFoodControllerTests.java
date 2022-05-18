@@ -4,7 +4,7 @@ import ateam.techreturners.healthyfood.model.Category;
 import ateam.techreturners.healthyfood.model.Diet;
 import ateam.techreturners.healthyfood.model.Ingredient;
 import ateam.techreturners.healthyfood.model.Meal;
-import ateam.techreturners.healthyfood.service.HealthyFoodManagerServiceImpl;
+import ateam.techreturners.healthyfood.service.HealthyFoodServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HealthyFoodControllerTests {
 
     @Mock
-    private HealthyFoodManagerServiceImpl healthyFoodManagerService;
+    private HealthyFoodServiceImpl healthyFoodManagerService;
 
     @InjectMocks
     private HealthyFoodController healthyFoodController;

@@ -1,7 +1,7 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.MealPlan;
-import ateam.techreturners.healthyfood.service.MealPlanManagerServiceImpl;
+import ateam.techreturners.healthyfood.service.MealPlanServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MealPlanControllerTests {
 
     @Mock
-    private MealPlanManagerServiceImpl mockMealPlanManagerServiceImpl;
+    private MealPlanServiceImpl mockMealPlanServiceImpl;
 
     @InjectMocks
     private MealPlanController mealPlanController;
@@ -48,14 +48,14 @@ public class MealPlanControllerTests {
         mealPlans.add(new MealPlan(1L, 1L, 1L, LocalDateTime.now()));
         mealPlans.add(new MealPlan(2L, 2L, 2L, LocalDateTime.now()));
 
-        when(mockMealPlanManagerServiceImpl.getMealPlans()).thenReturn(mealPlans);
+        when(mockMealPlanServiceImpl.getAllMealPlans()).thenReturn(mealPlans);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/mealplan/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(mockMealPlanManagerServiceImpl, times(1)).getMealPlans();
+        verify(mockMealPlanServiceImpl, times(1)).getAllMealPlans();
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MealPlanControllerTests {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         MealPlan mealPlan = new MealPlan(1L, userId, mealId, dateAdded);
 
-        when(mockMealPlanManagerServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
+        when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.post("/api/v1/mealplan/")
@@ -81,6 +81,6 @@ public class MealPlanControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));;
 
-        verify(mockMealPlanManagerServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
+        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
     }
 }
