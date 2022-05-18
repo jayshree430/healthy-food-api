@@ -16,7 +16,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
     @Override
-    public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime dateadded) {
+    public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime date) {
         return null;
     }
 

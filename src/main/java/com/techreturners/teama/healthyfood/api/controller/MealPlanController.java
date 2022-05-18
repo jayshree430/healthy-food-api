@@ -30,8 +30,8 @@ public class MealPlanController {
 
     @PostMapping({"/{userId}"})
     @Operation(summary = "Creates a meal plan for a user")
-    public ResponseEntity<MealPlan> createMealPlanByUser(@PathVariable Long userId, @RequestParam Long mealId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateAdded) {
-        MealPlan mealPlan = mealPlanManagerService.createMealPlan(mealId, userId, dateAdded);
+    public ResponseEntity<MealPlan> createMealPlanByUser(@PathVariable Long userId, @RequestParam Long mealId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+        MealPlan mealPlan = mealPlanManagerService.createMealPlan(mealId, userId, date);
         return new ResponseEntity<>(mealPlan, HttpStatus.CREATED);
     }
 }
