@@ -82,21 +82,23 @@ public class HealthyFoodControllerTests {
 
         Long calories = 1000L;
         List<String> excludedIngredients = Arrays.asList("Ing10", "Ing20");
-        List<String> excludedDiets = Arrays.asList("Diet10", "Diet20");
+        List<String> diet = Arrays.asList("Diet10", "Diet20");
+        String category = "Cat1";
         List<Meal> meals = new ArrayList<>();
         meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, "Diet1", "Photo1", "Url1", LocalDateTime.now()));
         meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, "Diet2", "Photo2", "Url2", LocalDateTime.now()));
 
-        when(healthyFoodManagerService.getMeals(calories, excludedIngredients, excludedDiets)).thenReturn(meals);
+        when(healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category)).thenReturn(meals);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/meal/")
                                 .param("calories", String.valueOf(calories))
                                 .param("excludedIngredients", String.join(",", excludedIngredients))
-                                .param("excludedDiets", String.join(",", excludedDiets)))
+                                .param("diet", String.join(",", diet))
+                                .param("category", category))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredients, excludedDiets);
+        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredients, diet, category);
     }
 }

@@ -9,5 +9,5 @@ public interface HealthyFoodManagerService {
 
     List<Diet> getAllDiets();
 
-    List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets);
+    List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category);
 }
