@@ -19,7 +19,4 @@ public interface HealthyFoodService {
 
     List<Meal> getAllMeals();
     Meal getMealById(Long id);
-
-    List<MealIngredientAs> getAllMealIngredientAs();
-    MealIngredientAs getMealIngredientAsById(Long id);
 }

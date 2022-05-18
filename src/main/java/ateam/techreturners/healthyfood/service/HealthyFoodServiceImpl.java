@@ -53,14 +53,4 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     public Meal getMealById(Long id) {
         return null;
     }
-
-    @Override
-    public List<MealIngredientAs> getAllMealIngredientAs() {
-        return null;
-    }
-
-    @Override
-    public MealIngredientAs getMealIngredientAsById(Long id) {
-        return null;
-    }
 }
