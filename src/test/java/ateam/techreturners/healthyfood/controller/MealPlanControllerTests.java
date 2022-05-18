@@ -1,7 +1,7 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.MealPlan;
-import ateam.techreturners.healthyfood.service.MealPlanManagerServiceImpl;
+import ateam.techreturners.healthyfood.service.MealPlanServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MealPlanControllerTests {
 
     @Mock
-    private MealPlanManagerServiceImpl mockMealPlanManagerServiceImpl;
+    private MealPlanServiceImpl mockMealPlanServiceImpl;
 
     @InjectMocks
     private MealPlanController mealPlanController;
@@ -37,29 +37,30 @@ public class MealPlanControllerTests {
     private MockMvc mockMvcController;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         mockMvcController = MockMvcBuilders.standaloneSetup(mealPlanController).build();
     }
 
     @Test
-    public void testGetMealPlans() throws Exception {
+    public void testGetMealPlansByUser() throws Exception {
 
+        Long userId = 1L;
         List<MealPlan> mealPlans = new ArrayList<>();
         mealPlans.add(new MealPlan(1L, 1L, 1L, LocalDateTime.now()));
         mealPlans.add(new MealPlan(2L, 2L, 2L, LocalDateTime.now()));
 
-        when(mockMealPlanManagerServiceImpl.getMealPlans()).thenReturn(mealPlans);
+        when(mockMealPlanServiceImpl.getAllMealPlans(userId)).thenReturn(mealPlans);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.get("/api/v1/mealplan/"))
+                        MockMvcRequestBuilders.get("/api/v1/mealplan/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(mockMealPlanManagerServiceImpl, times(1)).getMealPlans();
+        verify(mockMealPlanServiceImpl, times(1)).getAllMealPlans(userId);
     }
 
     @Test
-    public void testCreateMealPlan() throws Exception {
+    public void testCreateMealPlanByUser() throws Exception {
 
         Long mealId = 1L;
         Long userId = 1L;
@@ -67,20 +68,20 @@ public class MealPlanControllerTests {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         MealPlan mealPlan = new MealPlan(1L, userId, mealId, dateAdded);
 
-        when(mockMealPlanManagerServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
+        when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.post("/api/v1/mealplan/")
+                        MockMvcRequestBuilders.post("/api/v1/mealplan/" + userId)
                                 .param("mealId", String.valueOf(mealId))
-                                .param("userId", String.valueOf(userId))
                                 .param("dateAdded", dateAdded.format(dateFormatter))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userid").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));
+        ;
 
-        verify(mockMealPlanManagerServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
+        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
     }
 }

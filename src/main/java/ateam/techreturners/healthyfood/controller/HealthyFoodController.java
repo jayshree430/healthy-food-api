@@ -1,7 +1,7 @@
 package ateam.techreturners.healthyfood.controller;
 
 import ateam.techreturners.healthyfood.model.*;
-import ateam.techreturners.healthyfood.service.HealthyFoodManagerService;
+import ateam.techreturners.healthyfood.service.HealthyFoodService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class HealthyFoodController {
 
     @Autowired
-    HealthyFoodManagerService healthyFoodManagerService;
+    HealthyFoodService healthyFoodManagerService;
 
     @GetMapping({"/ingredient"})
     @Operation(summary = "Gets a list of all ingredients")
