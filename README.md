@@ -86,7 +86,7 @@ Run the main application and then go to:
 ## How to run the application
   * cd to the project root folder in the command line
   * mvn compile
-  * mvn exec:java -Dexec.mainClass=ateam.techreturners.healthyfood.HealthyfoodApplication
+  * mvn exec:java -Dexec.mainClass=HealthyfoodApplication
 
 ## Running the Unit tests
 * mvn test
