@@ -20,7 +20,12 @@ public class HealthyFoodManagerServiceImpl implements HealthyFoodManagerService 
     }
 
     @Override
-    public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets) {
+    public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
         return new ArrayList<>();
     }
 }

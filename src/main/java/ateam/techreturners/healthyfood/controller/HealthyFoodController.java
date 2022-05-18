@@ -33,10 +33,17 @@ public class HealthyFoodController {
         return new ResponseEntity<>(allDiets, HttpStatus.OK);
     }
 
+    @GetMapping({"/category"})
+    @Operation(summary = "Gets a list of all categories")
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> allCategories = healthyFoodManagerService.getAllCategories();
+        return new ResponseEntity<>(allCategories, HttpStatus.OK);
+    }
+
     @GetMapping({"/meal"})
     @Operation(summary = "Gets a selection of meals based on restrictions")
-    public ResponseEntity<List<Meal>> getMeals(@RequestParam Long calories, @RequestParam List<String> excludedIngredients, @RequestParam List<String> excludedDiets) {
-        List<Meal> meals = healthyFoodManagerService.getMeals(calories, excludedIngredients, excludedDiets);
+    public ResponseEntity<List<Meal>> getMeals(@RequestParam Long calories, @RequestParam List<String> excludedIngredients, @RequestParam List<String> diet, String category) {
+        List<Meal> meals = healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category);
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 }
