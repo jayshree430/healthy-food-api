@@ -16,7 +16,7 @@ public interface MealPlanRepository extends CrudRepository<MealPlan, Long> {
     List<MealPlan> getAllMealPlan(@Param(value = "userid") int userid);
 
     @Modifying
-    @Query(value = "INSERT INTO mealplan (mealid, userid, date) values(?userid, ?mealid, ?date) ", nativeQuery = true)
+    @Query(value = "INSERT INTO mealplan ('mealid', 'userid', 'date') values(?mealid, ?userid, ?date) ", nativeQuery = true)
     List<MealPlan> createMealPlan(@Param(value = "mealid") int mealid,
                                   @Param(value = "userid") int userid,
                                   @Param(value = "date") LocalDateTime date);
