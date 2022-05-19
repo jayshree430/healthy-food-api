@@ -1,6 +1,9 @@
 package com.techreturners.teama.healthyfood.api.service;
 
 import com.techreturners.teama.healthyfood.api.model.MealPlan;
+import com.techreturners.teama.healthyfood.api.repository.MealPlanRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,14 +13,17 @@ import java.util.List;
 @Service
 public class MealPlanServiceImpl implements MealPlanService {
 
+    @Autowired
+    MealPlanRepository mealRepository;
+
     @Override
-    public List<MealPlan> getAllMealPlans(Long userId) {
-        return new ArrayList<>();
+    public List<MealPlan> getAllMealPlans(Long userId){
+         return mealRepository.getAllMealPlan(Math.toIntExact(userId));
     }
 
     @Override
     public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime date) {
-        return null;
+        return (MealPlan) mealRepository.createMealPlan(Math.toIntExact(mealid), Math.toIntExact(userId), date);
     }
 
     @Override

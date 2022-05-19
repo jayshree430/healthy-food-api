@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class MealPlan {
     @Id
     @GeneratedValue
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false)
     Long id;
 
     @Column
