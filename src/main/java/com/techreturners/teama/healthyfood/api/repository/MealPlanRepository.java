@@ -12,11 +12,11 @@ import java.util.List;
 
 @Repository
 public interface MealPlanRepository extends CrudRepository<MealPlan, Long> {
-    @Query(value = "SELECT * FROM mealplan where userid = ?userid ", nativeQuery = true)
+    @Query(value = "SELECT * FROM mealplan where userid = :userid ", nativeQuery = true)
     List<MealPlan> getAllMealPlan(@Param(value = "userid") int userid);
 
     @Modifying
-    @Query(value = "INSERT INTO mealplan (mealid, userid, date) values(?mealid, ?userid, ?date) ", nativeQuery = true)
+    @Query(value = "INSERT INTO mealplan (mealid, userid, date) values(:mealid, :userid, :date) ", nativeQuery = true)
     List<MealPlan> createMealPlan(@Param(value = "mealid") int mealid,
                                   @Param(value = "userid") int userid,
                                   @Param(value = "date") LocalDateTime date);

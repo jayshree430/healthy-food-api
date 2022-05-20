@@ -31,12 +31,12 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> diets, String category) {
+    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> diets, String category) {
         String exString = excludedIngredients.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
         String dietString = diets.stream().map(Object::toString)
                 .collect(Collectors.joining(", "));
-        return mealRepository.getMeal(Math.toIntExact(calories), exString, dietString, category);
+        return mealRepository.getMeal(calories, exString, dietString, category);
     }
 
     @Override
