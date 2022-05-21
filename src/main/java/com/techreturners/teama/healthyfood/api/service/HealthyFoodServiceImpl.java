@@ -1,9 +1,10 @@
 package com.techreturners.teama.healthyfood.api.service;
 
-import com.techreturners.teama.healthyfood.api.model.Category;
-import com.techreturners.teama.healthyfood.api.model.Diet;
-import com.techreturners.teama.healthyfood.api.model.Ingredient;
-import com.techreturners.teama.healthyfood.api.model.Meal;
+import com.techreturners.teama.healthyfood.api.model.*;
+import com.techreturners.teama.healthyfood.api.repository.CategoryRepository;
+import com.techreturners.teama.healthyfood.api.repository.DietRepository;
+import com.techreturners.teama.healthyfood.api.repository.IngredientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,13 @@ import java.util.List;
 @Service
 public class HealthyFoodServiceImpl implements HealthyFoodService {
 
+    @Autowired
+    IngredientRepository ingredientRepository;
+    @Autowired
+    DietRepository dietRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
+
     @Override
     public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
         return new ArrayList<>();
@@ -19,7 +27,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 
     @Override
     public List<Ingredient> getAllIngredients() {
-        return new ArrayList<>();
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredientRepository.findAll().forEach(ingredients::add);
+        return ingredients;
     }
 
     @Override
@@ -29,7 +39,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 
     @Override
     public List<Diet> getAllDiets() {
-        return new ArrayList<>();
+        List<Diet> diets = new ArrayList<>();
+        dietRepository.findAll().forEach(diets::add);
+        return diets;
     }
 
     @Override
@@ -39,7 +51,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 
     @Override
     public List<Category> getAllCategories() {
-        return new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
+        categoryRepository.findAll().forEach(categories::add);
+        return categories;
     }
 
     @Override
