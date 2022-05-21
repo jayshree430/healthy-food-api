@@ -43,7 +43,7 @@ public class HealthyFoodControllerTests {
     private MockMvc mockMvcController;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         mockMvcController = MockMvcBuilders.standaloneSetup(healthyFoodController).build();
     }
 
@@ -51,8 +51,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllIngredients() throws Exception {
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, "photo1", 1, "3,4", 5L));
-        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, "photo2", 0, "5,7", 6L));
+        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, 10, "photo1", 1, 0, "1", "3,4", 5L));
+        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, 10, "photo2", 0, 1, "1", "5,7", 6L));
 
         when(healthyFoodManagerService.getAllIngredients()).thenReturn(ingredients);
 
@@ -106,8 +106,8 @@ public class HealthyFoodControllerTests {
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         String category = "Cat1";
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000 ,"1,3","Diet1", "Photo1", "Url1", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
-        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500,"5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
+        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000, "1,3", "Diet1", "Photo1", "Url1", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
+        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500, "5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
 
         when(healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category)).thenReturn(meals);
 

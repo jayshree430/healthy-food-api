@@ -38,15 +38,24 @@ public class Ingredient {
     int protein;
 
     @Column
+    int fibre;
+
+    @Column
     String photo;
 
     @Column
     int allergen;
 
     @Column
-    String category;
+    int amount;
 
     @Column
+    String measure;
+
+    @Column
+    String category;
+
+    @Column(name = "catid")
     Long categoryid;
 
 }
