@@ -43,7 +43,12 @@ public class Meal {
     @Column
     int calories;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "meal_ingredient",
+            joinColumns = {@JoinColumn(name = "meal_id", referencedColumnName = "id")},
+            inverseJoinColumns ={@JoinColumn(name = "ingredient_id", referencedColumnName = "id")}
+    )
     List<Ingredient> ingredients;
 
     @Column
