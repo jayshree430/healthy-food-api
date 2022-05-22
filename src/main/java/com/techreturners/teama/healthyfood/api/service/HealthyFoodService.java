@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface HealthyFoodService {
 
-    List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> excludedDiets, String category);
+    List<Meal> getMeals(Integer calories, List<Long> excludedIngredients, List<String> excludedDiets, String category);
 
     List<Ingredient> getAllIngredients();
     Ingredient getIngredientById(Long id);

@@ -45,7 +45,7 @@ public class HealthyFoodController {
 
     @GetMapping("/meal")
     @Operation(summary = "Gets a list of meals with the option to add dietary restrictions and category")
-    public ResponseEntity<List<Meal>> getMeals(@RequestParam(required = false) Integer calories, @RequestParam(required = false) List<String> excludedIngredients, @RequestParam(required = false) List<String> diet, @RequestParam(required = false) String category) {
+    public ResponseEntity<List<Meal>> getMeals(@RequestParam(required = false) Integer calories, @RequestParam(required = false) List<Long> excludedIngredients, @RequestParam(required = false) List<String> diet, @RequestParam(required = false) String category) {
         List<Meal> meals = calories == null && excludedIngredients == null && diet == null && category == null
                 ? healthyFoodManagerService.getAllMeals()
                 : healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category);

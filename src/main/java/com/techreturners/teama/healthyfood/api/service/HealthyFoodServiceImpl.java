@@ -24,8 +24,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     MealRepository mealRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
-        return mealRepository.getMeals(calories);
+    public List<Meal> getMeals(Integer calories, List<Long> excludedIngredients, List<String> excludedDiets, String category) {
+        return mealRepository.getMeals(calories,
+                excludedIngredients == null ? new ArrayList<>() : excludedIngredients);
     }
 
     @Override

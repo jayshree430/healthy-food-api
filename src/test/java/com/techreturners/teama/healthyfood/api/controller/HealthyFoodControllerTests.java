@@ -5,6 +5,7 @@ import com.techreturners.teama.healthyfood.api.model.Diet;
 import com.techreturners.teama.healthyfood.api.model.Ingredient;
 import com.techreturners.teama.healthyfood.api.model.Meal;
 import com.techreturners.teama.healthyfood.api.service.HealthyFoodServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -102,24 +103,25 @@ public class HealthyFoodControllerTests {
     public void testGetMeals() throws Exception {
 
         int calories = 1000;
-        List<String> excludedIngredients = Arrays.asList("Ing10", "Ing20");
+        List<Long> excludedIngredientsLong = Arrays.asList(1L, 2L);
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         String category = "Cat1";
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000, "1,3", "Diet1", "Photo1", "Url1", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
-        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500, "5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
+        List<Ingredient> ingredients = new ArrayList<>();
+        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000, ingredients, "1,3", "Diet1", "Photo1", "Url1", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
+        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500, ingredients, "5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
 
-        when(healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category)).thenReturn(meals);
+        when(healthyFoodManagerService.getMeals(calories, excludedIngredientsLong, diet, category)).thenReturn(meals);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/meal/")
                                 .param("calories", String.valueOf(calories))
-                                .param("excludedIngredients", String.join(",", excludedIngredients))
+                                .param("excludedIngredients", StringUtils.join(excludedIngredientsLong, ','))
                                 .param("diet", String.join(",", diet))
                                 .param("category", category))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredients, diet, category);
+        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredientsLong, diet, category);
     }
 }

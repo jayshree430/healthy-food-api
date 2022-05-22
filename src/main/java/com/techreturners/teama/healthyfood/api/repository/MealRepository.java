@@ -10,7 +10,10 @@ import java.util.List;
 
 @Repository
 public interface MealRepository extends CrudRepository<Meal, Long> {
-    @Query(value = "SELECT * FROM meal WHERE calories <= :calories", nativeQuery = true)
+    @Query(value = "SELECT * FROM meal m WHERE 1 = 1 " +
+            "AND (:calories IS NULL OR m.calories <= :calories) " +
+            "AND (m.id NOT IN (SELECT DISTINCT meal_id FROM meal_ingredients WHERE ingredients_id IN :excludedIngredients))", nativeQuery = true)
     List<Meal> getMeals(
-            @Param(value = "calories") int calories);
+            @Param(value = "calories") Integer calories,
+            @Param(value = "excludedIngredients") List<Long> excludedIngredients);
 }

@@ -280,3 +280,14 @@ LIMIT 0, 1000
 -- Date: 2022-05-21 15:13
 */
 INSERT INTO user (`id`,`email`,`firstname`,`lastname`,`dietid`,`exclude`,`dateadded`) VALUES (1,'test@mail.com','firstname','lastname','1','1','2022-05-17 16:55:43');
+
+
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (1,1);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (1,2);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (1,3);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (2,4);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (2,5);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (2,6);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (3,1);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (3,7);
+INSERT INTO meal_ingredients(`meal_id`, `ingredients_id`) VALUES (3,8);
