@@ -101,7 +101,7 @@ public class HealthyFoodControllerTests {
     @Test
     public void testGetMeals() throws Exception {
 
-        Long calories = 1000L;
+        int calories = 1000;
         List<String> excludedIngredients = Arrays.asList("Ing10", "Ing20");
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         String category = "Cat1";

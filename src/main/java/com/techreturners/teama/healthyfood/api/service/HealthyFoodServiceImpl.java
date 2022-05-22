@@ -4,6 +4,7 @@ import com.techreturners.teama.healthyfood.api.model.*;
 import com.techreturners.teama.healthyfood.api.repository.CategoryRepository;
 import com.techreturners.teama.healthyfood.api.repository.DietRepository;
 import com.techreturners.teama.healthyfood.api.repository.IngredientRepository;
+import com.techreturners.teama.healthyfood.api.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +20,12 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     DietRepository dietRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    MealRepository mealRepository;
 
     @Override
-    public List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
-        return new ArrayList<>();
+    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> excludedDiets, String category) {
+        return mealRepository.getMeals(calories);
     }
 
     @Override
@@ -63,7 +66,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 
     @Override
     public List<Meal> getAllMeals() {
-        return null;
+        List<Meal> meals = new ArrayList<>();
+        mealRepository.findAll().forEach(meals::add);
+        return meals;
     }
 
     @Override
