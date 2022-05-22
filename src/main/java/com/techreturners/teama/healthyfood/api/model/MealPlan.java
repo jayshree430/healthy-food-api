@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,11 +20,11 @@ public class MealPlan {
     @Column(updatable = false, nullable = false)
     Long id;
 
-    @Column
-    Long userid;
+    @ManyToOne
+    User user;
 
-    @Column
-    Long mealid;
+    @ManyToOne
+    Meal meal;
 
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")

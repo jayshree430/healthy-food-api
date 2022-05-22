@@ -8,8 +8,6 @@ import com.techreturners.teama.healthyfood.api.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +15,6 @@ import java.util.List;
 public class HealthyFoodServiceImpl implements HealthyFoodService {
 
     private final int MAX_MEAL_FILTERED_RESULTS = 3;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     IngredientRepository ingredientRepository;
