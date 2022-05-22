@@ -273,6 +273,7 @@ LIMIT 0, 1000
 INSERT INTO meal (`id`,`name`,`shortdesc`,`longdesc`,`category`,`preptime`,`servings`,`calories`,`ingredient`,`diet`,`photo`,`url`,`dateadded`,`start`,`end`) VALUES (1,'Orecchiette','',NULL,NULL,45,2,500,'1,2,3,4,5,6,7,8','2,3,10','https://spoonacular.com/recipeImages/654009-556x370.jpg','https://spoonacular.com/orecchiette-with-sun-dried-and-fresh-cherry-tomatoes-654009','2022-05-17 14:56:56',NULL,NULL);
 INSERT INTO meal (`id`,`name`,`shortdesc`,`longdesc`,`category`,`preptime`,`servings`,`calories`,`ingredient`,`diet`,`photo`,`url`,`dateadded`,`start`,`end`) VALUES (2,'Macaroni and Cheese','',NULL,NULL,50,4,1000,'17,18,19,20,21,9,14,12,22',NULL,'https://spoonacular.com/recipeImages/246078-556x370.jpg','https://www.simplyrecipes.com/recipes/civil_war_macaroni_and_cheese/','2022-05-17 15:08:53',NULL,NULL);
 INSERT INTO meal (`id`,`name`,`shortdesc`,`longdesc`,`category`,`preptime`,`servings`,`calories`,`ingredient`,`diet`,`photo`,`url`,`dateadded`,`start`,`end`) VALUES (3,'Caribbean Grill','',NULL,NULL,33,4,2000,NULL,'1,2','https://spoonacular.com/recipeImages/294475-556x370.jpeg','http://www.foodnetwork.com/recipes/caribbean-grill-recipe.html','2022-05-17 15:08:53',NULL,NULL);
+INSERT INTO meal (`id`,`name`,`shortdesc`,`longdesc`,`category`,`preptime`,`servings`,`calories`,`ingredient`,`diet`,`photo`,`url`,`dateadded`,`start`,`end`) VALUES (4,'Taco Pibil','',NULL,NULL,30,4,1500,NULL,'1,2','https://webknox.com/recipeImages/662744-556x370.jpg','https://foodnetwork.co.uk/recipes/all-american-beef-taco/','2022-05-17 15:08:53',NULL,NULL);
 
 /*
 -- Query: SELECT id,email,firstname,lastname, CONVERT(dietid USING utf8) dietid, CONVERT(exclude USING utf8) exclude, dateadded FROM healthyfoodapi_database.user
@@ -292,6 +293,9 @@ INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (2,6,
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,1,200);
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,7,50);
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,8,100);
+INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (4,8,200);
+INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (4,9,50);
+INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (4,13,100);
 
 
 INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (1,1);
@@ -301,3 +305,16 @@ INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (2,8);
 INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (2,9);
 INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (3,2);
 INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (3,10);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (4,9);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (4,10);
+
+
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (1,1);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (1,2);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (2,3);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (2,5);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (3,5);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (3,12);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (4,3);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (4,12);
+INSERT INTO meal_category(`meal_id`, `category_id`) VALUES (4,23);

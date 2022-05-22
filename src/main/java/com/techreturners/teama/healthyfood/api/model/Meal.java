@@ -31,6 +31,14 @@ public class Meal {
     @Column
     String longdesc;
 
+    @ManyToMany
+    @JoinTable(
+            name = "meal_category",
+            joinColumns = {@JoinColumn(name = "meal_id", referencedColumnName = "id")},
+            inverseJoinColumns ={@JoinColumn(name = "category_id", referencedColumnName = "id")}
+    )
+    List<Category> categories;
+
     @Column
     String category;
 

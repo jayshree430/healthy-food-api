@@ -31,10 +31,11 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     MealRepository mealRepository;
 
     @Override
-    public List<Meal> getMeals(Integer calories, List<Long> excludedIngredients, List<Long> diets, String category) {
+    public List<Meal> getMeals(Integer calories, List<Long> excludedIngredients, List<Long> diets, List<Long> categories) {
         return mealRepository.getMeals(calories,
                 excludedIngredients == null ? new ArrayList<>() : excludedIngredients,
                 diets == null ? new ArrayList<>() : diets, diets == null,
+                categories == null ? new ArrayList<>() : categories, categories == null,
                 MAX_MEAL_FILTERED_RESULTS);
     }
 
