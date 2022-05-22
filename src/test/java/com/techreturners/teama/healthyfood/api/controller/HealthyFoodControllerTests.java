@@ -51,8 +51,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllIngredients() throws Exception {
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, "photo1", 1, "3,4", 5L));
-        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, "photo2", 0, "5,7", 6L));
+        ingredients.add(new Ingredient(1L, "Ingredient1", 100, 10, 10, 10, "photo1", 1, 100,"g", "3,4", 5));
+        ingredients.add(new Ingredient(2L, "Ingredient2", 200, 20, 20, 20, "photo2", 0,100,"g", "5,7", 6));
 
         when(healthyFoodManagerService.getAllIngredients()).thenReturn(ingredients);
 
@@ -68,8 +68,8 @@ public class HealthyFoodControllerTests {
     public void testGetAllDiets() throws Exception {
 
         List<Diet> diets = new ArrayList<>();
-        diets.add(new Diet(1L, "Diet1", "5,7", " "));
-        diets.add(new Diet(2L, "Diet2", "3,4", " "));
+        diets.add(new Diet(1L, "Diet1", " "));
+        diets.add(new Diet(2L, "Diet2", " "));
 
         when(healthyFoodManagerService.getAllDiets()).thenReturn(diets);
 
@@ -104,7 +104,7 @@ public class HealthyFoodControllerTests {
         int calories = 1000;
         List<String> excludedIngredients = Arrays.asList("Ing10", "Ing20");
         List<String> diet = Arrays.asList("Diet10", "Diet20");
-        String category = "Cat1";
+        List<String> category = Arrays.asList("Cat1", "Cat2");
         List<Meal> meals = new ArrayList<>();
         meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000 ,"1,3","Diet1", "Photo1", "Url1", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
         meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500,"5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
@@ -116,7 +116,7 @@ public class HealthyFoodControllerTests {
                                 .param("calories", String.valueOf(calories))
                                 .param("excludedIngredients", String.join(",", excludedIngredients))
                                 .param("diet", String.join(",", diet))
-                                .param("category", category))
+                                .param("category", String.join(",", category)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 

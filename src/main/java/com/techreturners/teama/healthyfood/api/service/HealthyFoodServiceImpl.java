@@ -18,6 +18,11 @@ import java.util.stream.Collectors;
 @Service
 public class HealthyFoodServiceImpl implements HealthyFoodService {
 
+    private final String ingredientQuery = "m.id = mia.mealid And mia.ingredientid not in (";
+    private final String dietQuery = "m.id = mda.mealId And mda.dietId IN (";
+    private final String categoryQuery = "m.id = mca.mealId And mca.categoryId IN (";
+    private final String caloriesQuery = "calories <= ";
+
     @Autowired
     MealRepository mealRepository;
 
@@ -31,12 +36,59 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> diets, String category) {
-        String exString = excludedIngredients.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
-        String dietString = diets.stream().map(Object::toString)
-                .collect(Collectors.joining(", "));
-        return mealRepository.getMeal(calories, exString, dietString, category);
+    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> diets, List<String> category) {
+        String exString = "";
+        String dietString = "";
+        String categoryString = "" ;
+        String queryString = "";
+
+        for (String dietName: diets) {
+            Diet  diet = getDietByName(dietName);
+            if (diet != null){
+                if (dietString.length()>0)
+                    dietString += ","+ diet.getId();
+                else
+                    dietString = String.valueOf(diet.getId());
+            }
+        }
+        for (String ingredientName: excludedIngredients) {
+            Ingredient ingredient = getIngredientByName(ingredientName);
+            if (ingredient != null){
+                if (exString.length()>0)
+                    exString += "," + ingredient.getId();
+                else
+                    exString = String.valueOf(ingredient.getId());
+            }
+        }
+        for (String categoryName: category) {
+            Category categoryDb = getCategoryByName(categoryName);
+            if (categoryDb != null){
+                if (categoryString.length()>0)
+                    categoryString = ","+ categoryDb.getId();
+                else
+                    categoryString = String.valueOf(categoryDb.getId());
+            }
+        }
+        if (dietString.length()>0){
+            queryString += dietQuery + dietString + ")";
+        }
+        if (categoryString.length()>0){
+            if (queryString.length()>0)
+                queryString += " and ";
+            queryString += categoryQuery + categoryString + ")";
+        }
+        if (exString.length()>0){
+            if (queryString.length()>0)
+                queryString += " and ";
+            queryString += ingredientQuery + exString + ")";
+        }
+        if (calories > 0){
+            if (queryString.length()>0)
+                queryString += " and ";
+            queryString += caloriesQuery + calories;
+        }
+        System.out.println(queryString);
+         return mealRepository.getMeal(queryString);
     }
 
     @Override
@@ -52,6 +104,11 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     }
 
     @Override
+    public Ingredient getIngredientByName(String ingredientName){
+        return ingredientRepository.findByName(ingredientName);
+    }
+
+    @Override
     public List<Diet> getAllDiets() {
         List<Diet> diet = new ArrayList<>();
         dietRepository.findAll().forEach(diet::add);
@@ -64,6 +121,12 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     }
 
     @Override
+     public Diet getDietByName(String dietName){
+
+        return dietRepository.findByName(dietName);
+    }
+
+    @Override
     public List<Category> getAllCategories() {
         List<Category> category = new ArrayList<>();
         categoryRepository.findAll().forEach(category::add);
@@ -73,6 +136,11 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     @Override
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id).get();
+    }
+
+    @Override
+    public Category getCategoryByName(String categoryName){
+        return categoryRepository.findByName(categoryName);
     }
 
     @Override

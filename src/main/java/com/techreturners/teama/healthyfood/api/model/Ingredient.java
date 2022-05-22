@@ -44,9 +44,15 @@ public class Ingredient {
     int allergen;
 
     @Column
+    int amount;
+
+    @Column
+    String measure;
+
+    @Column
     String category;
 
     @Column
-    Long categoryid;
+    int catid;
 
 }
