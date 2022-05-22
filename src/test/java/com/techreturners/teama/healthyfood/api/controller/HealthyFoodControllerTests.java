@@ -104,24 +104,25 @@ public class HealthyFoodControllerTests {
 
         int calories = 1000;
         List<Long> excludedIngredientsLong = Arrays.asList(1L, 2L);
-        List<String> diet = Arrays.asList("Diet10", "Diet20");
+        List<Long> includedDietsLong = Arrays.asList(1L, 2L);
         String category = "Cat1";
         List<Meal> meals = new ArrayList<>();
         List<Ingredient> ingredients = new ArrayList<>();
-        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000, ingredients, "1,3", "Diet1", "Photo1", "Url1", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
-        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500, ingredients, "5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
+        List<Diet> diets = new ArrayList<>();
+        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000, ingredients, "1,3", diets, "Diet1", "Photo1", "Url1", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
+        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500, ingredients, "5,6", diets, "Diet2", "Photo2", "Url2", LocalDateTime.now(), LocalTime.now(), LocalTime.now().plusHours(10)));
 
-        when(healthyFoodManagerService.getMeals(calories, excludedIngredientsLong, diet, category)).thenReturn(meals);
+        when(healthyFoodManagerService.getMeals(calories, excludedIngredientsLong, includedDietsLong, category)).thenReturn(meals);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/meal/")
                                 .param("calories", String.valueOf(calories))
                                 .param("excludedIngredients", StringUtils.join(excludedIngredientsLong, ','))
-                                .param("diet", String.join(",", diet))
+                                .param("diets",  StringUtils.join(includedDietsLong, ','))
                                 .param("category", category))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 
-        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredientsLong, diet, category);
+        verify(healthyFoodManagerService, times(1)).getMeals(calories, excludedIngredientsLong, includedDietsLong, category);
     }
 }

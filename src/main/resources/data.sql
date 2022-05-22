@@ -292,3 +292,12 @@ INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (2,6,
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,1,200);
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,7,50);
 INSERT INTO meal_ingredient(`meal_id`, `ingredient_id`, `quantity`) VALUES (3,8,100);
+
+
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (1,1);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (1,2);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (1,3);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (2,8);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (2,9);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (3,2);
+INSERT INTO meal_diet(`meal_id`, `diet_id`) VALUES (3,10);

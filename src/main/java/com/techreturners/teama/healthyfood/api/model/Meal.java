@@ -43,7 +43,7 @@ public class Meal {
     @Column
     int calories;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "meal_ingredient",
             joinColumns = {@JoinColumn(name = "meal_id", referencedColumnName = "id")},
@@ -53,6 +53,14 @@ public class Meal {
 
     @Column
     String ingredient;
+
+    @ManyToMany
+    @JoinTable(
+            name = "meal_diet",
+            joinColumns = {@JoinColumn(name = "meal_id", referencedColumnName = "id")},
+            inverseJoinColumns ={@JoinColumn(name = "diet_id", referencedColumnName = "id")}
+    )
+    List<Diet> diets;
 
     @Column
     String diet;
