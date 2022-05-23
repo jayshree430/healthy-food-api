@@ -20,11 +20,12 @@ public class MealPlan {
     @Column(updatable = false)
     Long id;
 
-    @Column
-    Long user_id;
+    @ManyToOne
+    User user;
 
-    @Column
-    Long meal_id;
+    @ManyToOne
+    Meal meal;
+
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     LocalDateTime date;

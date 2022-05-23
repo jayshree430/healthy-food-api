@@ -35,8 +35,8 @@ public class MealPlanServiceImpl implements MealPlanService {
         Meal meal = mealRepository.findById(mealid).orElse(null);
         if (meal == null){ throw  new IllegalArgumentException();}
         MealPlan mealPlan = new MealPlan();
-        mealPlan.setUser_id((user.getId()));
-        mealPlan.setMeal_id(meal.getId());
+        mealPlan.setUser(user);
+        mealPlan.setMeal(meal);
         mealPlan.setDate(date);
         mealPlanRepository.save(mealPlan);
         return mealPlan;

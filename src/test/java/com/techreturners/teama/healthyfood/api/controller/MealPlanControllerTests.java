@@ -1,6 +1,8 @@
 package com.techreturners.teama.healthyfood.api.controller;
 
+import com.techreturners.teama.healthyfood.api.model.Meal;
 import com.techreturners.teama.healthyfood.api.model.MealPlan;
+import com.techreturners.teama.healthyfood.api.model.User;
 import com.techreturners.teama.healthyfood.api.service.MealPlanServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,8 +48,10 @@ public class MealPlanControllerTests {
 
         Long userId = 1L;
         List<MealPlan> mealPlans = new ArrayList<>();
-        mealPlans.add(new MealPlan(1L, 1L, 1L, LocalDateTime.now()));
-        mealPlans.add(new MealPlan(2L, 2L, 2L, LocalDateTime.now()));
+        User user = new User();
+        Meal meal = new Meal();
+        mealPlans.add(new MealPlan(1L, user, meal, LocalDateTime.now()));
+        mealPlans.add(new MealPlan(2L, user, meal, LocalDateTime.now()));
 
         when(mockMealPlanServiceImpl.getAllMealPlans(userId)).thenReturn(mealPlans);
 
@@ -62,27 +66,29 @@ public class MealPlanControllerTests {
     @Test
     public void testCreateMealPlanByUser() throws Exception {
 
-        Long mealId = 1L;
-        Long userId = 1L;
+        User user = new User();
+        user.setId(1L);
+        Meal meal = new Meal();
+        meal.setId(1L);
         LocalDateTime date = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatterISO = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
-        MealPlan mealPlan = new MealPlan(1L, userId, mealId, date);
+        MealPlan mealPlan = new MealPlan(1L, user, meal, date);
 
-        when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, date)).thenReturn(mealPlan);
+        when(mockMealPlanServiceImpl.createMealPlan(meal.getId(), user.getId(), date)).thenReturn(mealPlan);
 
         this.mockMvcController.perform(
-                        MockMvcRequestBuilders.post("/api/v1/mealplan/" + userId)
-                                .param("mealId", String.valueOf(mealId))
+                        MockMvcRequestBuilders.post("/api/v1/mealplan/" + user.getId())
+                                .param("mealId", String.valueOf(meal.getId()))
                                 .param("date", date.format(dateTimeFormatterISO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.user_id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.meal_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user.id").value(user.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.meal.id").value(meal.getId()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(date.format(dateTimeFormatter)));
 
-        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, date);
+        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(meal.getId(), user.getId(), date);
     }
 }
