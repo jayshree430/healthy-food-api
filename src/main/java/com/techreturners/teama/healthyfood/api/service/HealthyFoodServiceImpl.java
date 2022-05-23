@@ -36,7 +36,7 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<String> diets, List<String> category) {
+    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<Long> diets, List<String> category) {
         String exString = "";
         String dietString = "";
         String categoryString = "" ;
@@ -102,8 +102,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 //                dietsList, dietsList.isEmpty(), categoriesList,
 //                categoriesList.isEmpty());
         return mealRepository.getMeals(calories,
-                excludedIngredients == null ? new ArrayList<>() : excludedIngredients
-        );
+                excludedIngredients == null ? new ArrayList<>() : excludedIngredients,
+                diets == null ? new ArrayList<>() : diets, diets == null
+                );
     }
 
     @Override

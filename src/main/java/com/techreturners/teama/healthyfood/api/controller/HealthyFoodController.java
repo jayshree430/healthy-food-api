@@ -48,13 +48,13 @@ public class HealthyFoodController {
     @Operation(summary = "Gets a selection of meals based on restrictions")
     public ResponseEntity<List<Meal>> getMeals( @RequestParam(required = false) Integer calories, @RequestParam(required = false)
             List<Long> excludedIngredients, @RequestParam(required = false)
-            List<String> diet, @RequestParam(required = false)
+            List<Long> diets, @RequestParam(required = false)
             List<String> category) {
         List<Meal> meals = new ArrayList<>();
-        if(calories ==  null && excludedIngredients==null && diet == null && category==null){
+        if(calories ==  null && excludedIngredients==null && diets == null && category==null){
            meals = healthyFoodManagerService.getAllMeals();
         }else{
-            meals =   healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category);
+            meals =   healthyFoodManagerService.getMeals(calories, excludedIngredients, diets, category);
         }
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }

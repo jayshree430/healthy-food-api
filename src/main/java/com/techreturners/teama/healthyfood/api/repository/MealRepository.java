@@ -18,19 +18,18 @@ public interface MealRepository extends CrudRepository<Meal, Long> {
 //    List<Meal> getMeal(String query);
 
     @Query(value ="SELECT DISTINCT m.* FROM meal m " +
-//            "LEFT table_join_meal_dietAs mda ON m.id = mda.mealId " +
+            "LEFT JOIN meal_diet_as md ON m.id = md.meal_id " +
 //            "LEFT JOIN table_join_meal_categoryAs mca ON m.id = mca.mealId " +
-//            "LEFT JOIN meal_ingredient_as mia ON m.id = mia.mealid " +
             "WHERE (:calories IS NULL OR m.calories <= :calories) " +
             "AND (m.id NOT IN (SELECT DISTINCT meal_id FROM meal_ingredient_as WHERE ingredient_id IN :excludedIngredients)) " +
-//            "AND (:isDiets IS TRUE OR mda.dietId IN :diets) " +
+            "AND (:dietsIsNull IS TRUE OR md.diet_id IN :diets) " +
 //            "AND (:isCategories IS TRUE OR mca.categoryId IN :categories) " +
             "LIMIT 3", nativeQuery = true)
     List<Meal> getMeals(
             @Param(value = "calories") Integer calories,
-            @Param(value = "excludedIngredients") List<Long> excludedIngredients);
-//            @Param(value = "diets") List<Long> diets,
-//            @Param(value = "isDiets") Boolean dietsIsNull,
+            @Param(value = "excludedIngredients") List<Long> excludedIngredients,
+            @Param(value = "diets") List<Long> diets,
+            @Param(value = "dietsIsNull") Boolean dietsIsNull);
 //            @Param(value = "categories") List<Long> categories,
 //            @Param(value = "isCategories") Boolean categoriesIsNull);
 
