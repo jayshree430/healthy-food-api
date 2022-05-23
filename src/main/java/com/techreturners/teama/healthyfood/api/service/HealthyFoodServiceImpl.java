@@ -33,7 +33,7 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<Long> diets, List<Long> categories) {
+    public List<Meal> getMeals(Integer calories, List<Long> excludedIngredients, List<Long> diets, List<Long> categories) {
         return mealRepository.getMeals(calories,
                 excludedIngredients == null ? new ArrayList<>() : excludedIngredients,
                 diets == null ? new ArrayList<>() : diets, diets == null,
