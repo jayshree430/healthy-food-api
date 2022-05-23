@@ -1,31 +1,45 @@
 package com.techreturners.teama.healthyfood.api.service;
 
-import com.mysql.cj.log.Log;
+import com.techreturners.teama.healthyfood.api.model.Meal;
 import com.techreturners.teama.healthyfood.api.model.MealPlan;
+import com.techreturners.teama.healthyfood.api.model.User;
 import com.techreturners.teama.healthyfood.api.repository.MealPlanRepository;
+import com.techreturners.teama.healthyfood.api.repository.MealRepository;
+import com.techreturners.teama.healthyfood.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MealPlanServiceImpl implements MealPlanService {
 
     @Autowired
-    MealPlanRepository mealRepository;
+    MealRepository mealRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    MealPlanRepository mealPlanRepository;
 
     @Override
     public List<MealPlan> getAllMealPlans(Long userId){
-         return mealRepository.getAllMealPlan(userId);
+        return mealPlanRepository.getAllMealPlans(userId);
     }
+    public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime date){
 
-    @Override
-    public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime date) {
-        return (MealPlan) mealRepository.createMealPlan(mealid, userId, date);
-
+        User user = userRepository.findById(userId).orElse(null);
+        if (user ==null){ throw new IllegalArgumentException();}
+        Meal meal = mealRepository.findById(mealid).orElse(null);
+        if (meal == null){ throw  new IllegalArgumentException();}
+        MealPlan mealPlan = new MealPlan();
+        mealPlan.setUser_id((user.getId()));
+        mealPlan.setMeal_id(meal.getId());
+        mealPlan.setDate(date);
+        mealPlanRepository.save(mealPlan);
+        return mealPlan;
     }
 
     @Override

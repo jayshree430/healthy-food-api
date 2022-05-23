@@ -79,10 +79,9 @@ public class MealPlanControllerTests {
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.userid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.meal_id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(date.format(dateTimeFormatter)));
-        ;
 
         verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, date);
     }
