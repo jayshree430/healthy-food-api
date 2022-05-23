@@ -36,7 +36,7 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<String> excludedIngredients, List<String> diets, List<String> category) {
+    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<String> diets, List<String> category) {
         String exString = "";
         String dietString = "";
         String categoryString = "" ;
@@ -46,37 +46,37 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
         List<Long> exIngList = new ArrayList<>();
         List<Long> categoriesList = new ArrayList<>();
 
-        for (String dietName: diets) {
-            Diet  diet = getDietByName(dietName);
-            if (diet != null){
-//                if (dietString.length()>0)
-                    dietsList.add(diet.getId());
-//                    exString += "," + diet.getId();
-//                else
-//                    dietString = String.valueOf(diet.getId());
-            }
-        }
-        for (String ingredientName: excludedIngredients) {
-            Ingredient ingredient = getIngredientByName(ingredientName);
-            if (ingredient != null){
-//                if (exString.length()>0)
-                    exIngList.add(ingredient.getId());
-//                    exString += "," + ingredient.getId();
-//                else
-//                    exString = String.valueOf(ingredient.getId());
-            }
-        }
-        for (String categoryName: category) {
-            Category categoryDb = getCategoryByName(categoryName);
-            if (categoryDb != null){
-
-                categoriesList.add(categoryDb.getId());
-//                if (categoryString.length()>0)
-//                    categoryString = ","+ categoryDb.getId();
-//                else
-//                    categoryString = String.valueOf(categoryDb.getId());
-            }
-        }
+//        for (String dietName: diets) {
+//            Diet  diet = getDietByName(dietName);
+//            if (diet != null){
+////                if (dietString.length()>0)
+//                    dietsList.add(diet.getId());
+////                    exString += "," + diet.getId();
+////                else
+////                    dietString = String.valueOf(diet.getId());
+//            }
+//        }
+//        for (String ingredientName: excludedIngredients) {
+//            Ingredient ingredient = getIngredientByName(ingredientName);
+//            if (ingredient != null){
+////                if (exString.length()>0)
+//                    exIngList.add(ingredient.getId());
+////                    exString += "," + ingredient.getId();
+////                else
+////                    exString = String.valueOf(ingredient.getId());
+//            }
+//        }
+//        for (String categoryName: category) {
+//            Category categoryDb = getCategoryByName(categoryName);
+//            if (categoryDb != null){
+//
+//                categoriesList.add(categoryDb.getId());
+////                if (categoryString.length()>0)
+////                    categoryString = ","+ categoryDb.getId();
+////                else
+////                    categoryString = String.valueOf(categoryDb.getId());
+//            }
+//        }
 //        if (dietString.length()>0){
 //            queryString += dietQuery + dietString + ")";
 //        }
@@ -101,7 +101,9 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
 //        return mealRepository.getMeals(calories, exIngList,
 //                dietsList, dietsList.isEmpty(), categoriesList,
 //                categoriesList.isEmpty());
-        return mealRepository.getMeals(calories);
+        return mealRepository.getMeals(calories,
+                excludedIngredients == null ? new ArrayList<>() : excludedIngredients
+        );
     }
 
     @Override

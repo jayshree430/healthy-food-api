@@ -5,6 +5,7 @@ import com.techreturners.teama.healthyfood.api.model.Diet;
 import com.techreturners.teama.healthyfood.api.model.Ingredient;
 import com.techreturners.teama.healthyfood.api.model.Meal;
 import com.techreturners.teama.healthyfood.api.service.HealthyFoodServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -102,7 +103,7 @@ public class HealthyFoodControllerTests {
     public void testGetMeals() throws Exception {
 
         int calories = 1000;
-        List<String> excludedIngredients = Arrays.asList("Ing10", "Ing20");
+        List<Long> excludedIngredients = Arrays.asList(1L,2L);
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         List<String> category = Arrays.asList("Cat1", "Cat2");
         List<Meal> meals = new ArrayList<>();
@@ -117,7 +118,7 @@ public class HealthyFoodControllerTests {
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.get("/api/v1/meal/")
                                 .param("calories", String.valueOf(calories))
-                                .param("excludedIngredients", String.join(",", excludedIngredients))
+                                .param("excludedIngredients", StringUtils.join(excludedIngredients, ','))
                                 .param("diet", String.join(",", diet))
                                 .param("category", String.join(",", category)))
                 .andExpect(MockMvcResultMatchers.status().isOk())

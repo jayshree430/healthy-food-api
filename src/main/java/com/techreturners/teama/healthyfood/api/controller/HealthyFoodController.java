@@ -47,7 +47,7 @@ public class HealthyFoodController {
     @GetMapping({"/meal"})
     @Operation(summary = "Gets a selection of meals based on restrictions")
     public ResponseEntity<List<Meal>> getMeals( @RequestParam(required = false) Integer calories, @RequestParam(required = false)
-            List<String> excludedIngredients, @RequestParam(required = false)
+            List<Long> excludedIngredients, @RequestParam(required = false)
             List<String> diet, @RequestParam(required = false)
             List<String> category) {
         List<Meal> meals = new ArrayList<>();

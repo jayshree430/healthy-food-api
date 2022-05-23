@@ -22,13 +22,13 @@ public interface MealRepository extends CrudRepository<Meal, Long> {
 //            "LEFT JOIN table_join_meal_categoryAs mca ON m.id = mca.mealId " +
 //            "LEFT JOIN meal_ingredient_as mia ON m.id = mia.mealid " +
             "WHERE (:calories IS NULL OR m.calories <= :calories) " +
-//            "AND (m.id NOT IN (SELECT DISTINCT mealid FROM table_join_meal_ingredientAs WHERE ingredientid IN :exclusion)) " +
+            "AND (m.id NOT IN (SELECT DISTINCT meal_id FROM meal_ingredient_as WHERE ingredient_id IN :excludedIngredients)) " +
 //            "AND (:isDiets IS TRUE OR mda.dietId IN :diets) " +
 //            "AND (:isCategories IS TRUE OR mca.categoryId IN :categories) " +
             "LIMIT 3", nativeQuery = true)
     List<Meal> getMeals(
-            @Param(value = "calories") Integer calories);
-//            @Param(value = "exclusion") List<Long> exclusion,
+            @Param(value = "calories") Integer calories,
+            @Param(value = "excludedIngredients") List<Long> excludedIngredients);
 //            @Param(value = "diets") List<Long> diets,
 //            @Param(value = "isDiets") Boolean dietsIsNull,
 //            @Param(value = "categories") List<Long> categories,
