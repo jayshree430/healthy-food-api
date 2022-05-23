@@ -105,7 +105,7 @@ public class HealthyFoodControllerTests {
         int calories = 1000;
         List<Long> excludedIngredients = Arrays.asList(1L,2L);
         List<Long> dietList = Arrays.asList(1L, 2L);
-        List<String> category = Arrays.asList("Cat1", "Cat2");
+        List<Long> category = Arrays.asList(1L, 2L);
         List<Meal> meals = new ArrayList<>();
         List<Ingredient> ingredients = new ArrayList<>();
         List<Diet> diets =new ArrayList<>();
@@ -120,7 +120,7 @@ public class HealthyFoodControllerTests {
                                 .param("calories", String.valueOf(calories))
                                 .param("excludedIngredients", StringUtils.join(excludedIngredients, ','))
                                 .param("diets", StringUtils.join( dietList,","))
-                                .param("category", String.join(",", category)))
+                                .param("category", StringUtils.join(category,",")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(2)));
 

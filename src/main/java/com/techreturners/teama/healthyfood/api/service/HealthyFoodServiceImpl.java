@@ -18,10 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class HealthyFoodServiceImpl implements HealthyFoodService {
 
-    private final String ingredientQuery = "m.id = mia.mealid And mia.ingredientid not in (";
-    private final String dietQuery = "m.id = mda.mealId And mda.dietId IN (";
-    private final String categoryQuery = "m.id = mca.mealId And mca.categoryId IN (";
-    private final String caloriesQuery = "calories <= ";
+    private final int MAX_MEAL_FILTERED_RESULTS = 3;
 
     @Autowired
     MealRepository mealRepository;
@@ -36,75 +33,12 @@ public class HealthyFoodServiceImpl implements HealthyFoodService {
     CategoryRepository categoryRepository;
 
     @Override
-    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<Long> diets, List<String> category) {
-        String exString = "";
-        String dietString = "";
-        String categoryString = "" ;
-        String queryString = "";
-
-        List<Long> dietsList  = new ArrayList<>();
-        List<Long> exIngList = new ArrayList<>();
-        List<Long> categoriesList = new ArrayList<>();
-
-//        for (String dietName: diets) {
-//            Diet  diet = getDietByName(dietName);
-//            if (diet != null){
-////                if (dietString.length()>0)
-//                    dietsList.add(diet.getId());
-////                    exString += "," + diet.getId();
-////                else
-////                    dietString = String.valueOf(diet.getId());
-//            }
-//        }
-//        for (String ingredientName: excludedIngredients) {
-//            Ingredient ingredient = getIngredientByName(ingredientName);
-//            if (ingredient != null){
-////                if (exString.length()>0)
-//                    exIngList.add(ingredient.getId());
-////                    exString += "," + ingredient.getId();
-////                else
-////                    exString = String.valueOf(ingredient.getId());
-//            }
-//        }
-//        for (String categoryName: category) {
-//            Category categoryDb = getCategoryByName(categoryName);
-//            if (categoryDb != null){
-//
-//                categoriesList.add(categoryDb.getId());
-////                if (categoryString.length()>0)
-////                    categoryString = ","+ categoryDb.getId();
-////                else
-////                    categoryString = String.valueOf(categoryDb.getId());
-//            }
-//        }
-//        if (dietString.length()>0){
-//            queryString += dietQuery + dietString + ")";
-//        }
-//        if (categoryString.length()>0){
-//            if (queryString.length()>0)
-//                queryString += " and ";
-//            queryString += categoryQuery + categoryString + ")";
-//        }
-//        if (exString.length()>0){
-//            if (queryString.length()>0)
-//                queryString += " and ";
-//            queryString += ingredientQuery + exString + ")";
-//        }
-//        if (calories > 0){
-//            if (queryString.length()>0)
-//                queryString += " and ";
-//            queryString += caloriesQuery + calories;
-//        }
-//        System.out.println(queryString);
-//         return mealRepository.getMeal(queryString);
-
-//        return mealRepository.getMeals(calories, exIngList,
-//                dietsList, dietsList.isEmpty(), categoriesList,
-//                categoriesList.isEmpty());
+    public List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<Long> diets, List<Long> categories) {
         return mealRepository.getMeals(calories,
                 excludedIngredients == null ? new ArrayList<>() : excludedIngredients,
-                diets == null ? new ArrayList<>() : diets, diets == null
-                );
+                diets == null ? new ArrayList<>() : diets, diets == null,
+                categories == null ? new ArrayList<>() : categories, categories == null,
+                MAX_MEAL_FILTERED_RESULTS);
     }
 
     @Override
