@@ -106,8 +106,11 @@ public class HealthyFoodControllerTests {
         List<String> diet = Arrays.asList("Diet10", "Diet20");
         List<String> category = Arrays.asList("Cat1", "Cat2");
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000 ,"1,3","Diet1", "Photo1", "Url1", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
-        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500,"5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10)));
+        List<Ingredient> ingredients = new ArrayList<>();
+        List<Diet> diets =new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
+        meals.add(new Meal(1L, "Meal1", "ShortDesc1", "LongDesc1", "Category1", 10, 10, 2000 ,"1,3","Diet1", "Photo1", "Url1", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10), categories, diets, ingredients));
+        meals.add(new Meal(2L, "Meal2", "ShortDesc2", "LongDesc2", "Category2", 20, 20, 1500,"5,6", "Diet2", "Photo2", "Url2", LocalDateTime.now(),LocalTime.now(), LocalTime.now().plusHours(10), categories, diets, ingredients));
 
         when(healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category)).thenReturn(meals);
 

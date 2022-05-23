@@ -73,7 +73,7 @@ public class MealPlanControllerTests {
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.post("/api/v1/mealplan/" + userId)
                                 .param("mealId", String.valueOf(mealId))
-                                .param("dateAdded", dateAdded.format(dateFormatter))
+                                .param("date", dateAdded.format(dateFormatter))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))

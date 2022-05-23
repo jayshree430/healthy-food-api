@@ -5,27 +5,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@IdClass(MealIngredientsAsId.class)
 public class MealIngredientsAs {
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
     Integer id;
 
-    @Column
-    int mealid;
+    @Column(name = "meal_id")
+    Long mealId;
 
-    @Column
-    int ingredientid;
+    @Column (name = "ingredient_id")
+    Long ingredientId;
 
     @Column
     int quantity;

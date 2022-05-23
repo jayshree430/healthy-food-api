@@ -1,5 +1,6 @@
 package com.techreturners.teama.healthyfood.api.service;
 
+import com.mysql.cj.log.Log;
 import com.techreturners.teama.healthyfood.api.model.MealPlan;
 import com.techreturners.teama.healthyfood.api.repository.MealPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,13 @@ public class MealPlanServiceImpl implements MealPlanService {
 
     @Override
     public List<MealPlan> getAllMealPlans(Long userId){
-         return mealRepository.getAllMealPlan(Math.toIntExact(userId));
+         return mealRepository.getAllMealPlan(userId);
     }
 
     @Override
     public MealPlan createMealPlan(Long mealid, Long userId, LocalDateTime date) {
-        return (MealPlan) mealRepository.createMealPlan(Math.toIntExact(mealid), Math.toIntExact(userId), date);
+        return (MealPlan) mealRepository.createMealPlan(mealid, userId, date);
+
     }
 
     @Override

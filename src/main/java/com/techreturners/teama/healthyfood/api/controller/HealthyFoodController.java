@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,8 +46,16 @@ public class HealthyFoodController {
 
     @GetMapping({"/meal"})
     @Operation(summary = "Gets a selection of meals based on restrictions")
-    public ResponseEntity<List<Meal>> getMeals(@RequestParam int calories, @RequestParam List<String> excludedIngredients, @RequestParam List<String> diet, @RequestParam List<String> category) {
-        List<Meal> meals = healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category);
+    public ResponseEntity<List<Meal>> getMeals( @RequestParam(required = false) Integer calories, @RequestParam(required = false)
+            List<String> excludedIngredients, @RequestParam(required = false)
+            List<String> diet, @RequestParam(required = false)
+            List<String> category) {
+        List<Meal> meals = new ArrayList<>();
+        if(calories ==  null && excludedIngredients==null && diet == null && category==null){
+           meals = healthyFoodManagerService.getAllMeals();
+        }else{
+            meals =   healthyFoodManagerService.getMeals(calories, excludedIngredients, diet, category);
+        }
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 }
