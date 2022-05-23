@@ -24,9 +24,7 @@ public class MealPlanServiceImpl implements MealPlanService {
 
     @Override
     public List<MealPlan> getAllMealPlans(Long userId) {
-        List<MealPlan> mealPlans = new ArrayList<>();
-        mealPlanRepository.findAll().forEach(mealPlans::add);
-        return mealPlans;
+        return mealPlanRepository.getAllMealPlans(userId);
     }
 
     @Override
