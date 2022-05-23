@@ -64,24 +64,25 @@ public class MealPlanControllerTests {
 
         Long mealId = 1L;
         Long userId = 1L;
-        LocalDateTime dateAdded = LocalDateTime.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        MealPlan mealPlan = new MealPlan(1L, userId, mealId, dateAdded);
+        LocalDateTime date = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatterISO = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
-        when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, dateAdded)).thenReturn(mealPlan);
+        MealPlan mealPlan = new MealPlan(1L, userId, mealId, date);
+
+        when(mockMealPlanServiceImpl.createMealPlan(mealId, userId, date)).thenReturn(mealPlan);
 
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.post("/api/v1/mealplan/" + userId)
                                 .param("mealId", String.valueOf(mealId))
-                                .param("dateAdded", dateAdded.format(dateFormatter))
+                                .param("date", date.format(dateTimeFormatterISO))
                 )
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.userid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mealid").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(dateAdded.format(dateFormatter)));
-        ;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.user_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.meal_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(date.format(dateTimeFormatter)));
 
-        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, dateAdded);
+        verify(mockMealPlanServiceImpl, times(1)).createMealPlan(mealId, userId, date);
     }
 }

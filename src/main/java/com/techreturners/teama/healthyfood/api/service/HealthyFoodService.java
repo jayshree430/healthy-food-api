@@ -9,16 +9,19 @@ import java.util.List;
 
 public interface HealthyFoodService {
 
-    List<Meal> getMeals(Long calories, List<String> excludedIngredients, List<String> excludedDiets, String category);
+    List<Meal> getMeals(int calories, List<Long> excludedIngredients, List<Long> diets, List<Long> categories);
 
     List<Ingredient> getAllIngredients();
     Ingredient getIngredientById(Long id);
+    Ingredient getIngredientByName(String dietName);
 
     List<Diet> getAllDiets();
     Diet getDietById(Long id);
+    Diet getDietByName(String dietName);
 
     List<Category> getAllCategories();
     Category getCategoryById(Long id);
+    Category getCategoryByName(String categoryName);
 
     List<Meal> getAllMeals();
     Meal getMealById(Long id);
