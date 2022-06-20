@@ -66,6 +66,24 @@ Run the main application and then go to:
 - JSON: http://localhost:8080/v3/api-docs
 - User Interface: http://localhost:8080/swagger-ui/index.html
 
+## Creating Production Database in MySQL
+
+We created the database in AWS and connected to our application using following steps.
+
+* Create a publicly accessible MySQL DB in AWS with your own user and password.
+* Add a MySQL inbound security rule in the VPC where the AWS DB is running if you would like your local machine to access it.
+* Update the following properties in the application-prod.properties file:
+  * user and password (password should be updated in your environment variable)
+  * datasource url
+* Connect to MySQL AWS DB and run the following command:
+  * create database healthyfood_database;
+* Add the following line in the application-prod.properties file:
+  * spring.jpa.hibernate.ddl-auto=update
+* Generate the database schema by running the application.
+* Add data to DB by running the data.sql scripts in the project resources folder.
+* Remove the line added in step 5) to avoid any more automatic updates in Production.
+
+
 ### Pre-Requisites
 - Java SE Development Kit 11
 - Maven
@@ -89,3 +107,16 @@ Run the main application and then go to:
 
 ## Running the Unit tests
 * mvn test
+
+## Run as a Docker container
+* cd to the project root folder in the command line
+* docker build -t healthy-food-api:1.0 .
+* docker run -p 8080:8080 healthy-food-api:1.0
+* now you can go to: http://localhost:8080/swagger-ui/index.html
+
+To stop container:
+
+* press CTRL + C or
+* kill it from another command line by using:
+* docker ps (to get the id of the running container)
+* docker stop <container id>
